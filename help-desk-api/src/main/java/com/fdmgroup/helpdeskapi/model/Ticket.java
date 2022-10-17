@@ -14,12 +14,25 @@ import lombok.Setter;
 @Entity
 public class Ticket {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Setter(AccessLevel.NONE)
-    @Column(name = "ticket_id")
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Setter(AccessLevel.NONE)
+	@Column(name = "ticket_id")
+	private long id;
 
-    @Column(name = "title", nullable = false)
-    private String title;
+	@Column(name = "title", nullable = false)
+	private String title;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public long getId() {
+		return id;
+	}
+
 }
