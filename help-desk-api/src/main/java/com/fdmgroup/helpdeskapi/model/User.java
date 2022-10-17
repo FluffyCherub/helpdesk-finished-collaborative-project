@@ -15,9 +15,9 @@ import lombok.Data;
 @Entity
 @Table(name = "Users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public abstract class User {
 	@Id // Make this field the primary id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id", nullable = false)
 	private long id;
 
