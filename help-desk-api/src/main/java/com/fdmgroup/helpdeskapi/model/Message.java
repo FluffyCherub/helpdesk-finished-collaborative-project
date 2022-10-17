@@ -18,6 +18,7 @@ public class Message {
     @Column(name = "ticket_id")
     private long id;
 
+    @Column(name = "message")
     private String text;
 
     public long getId() {
