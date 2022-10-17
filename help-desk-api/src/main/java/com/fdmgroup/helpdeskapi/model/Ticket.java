@@ -50,7 +50,7 @@ public class Ticket {
 		return messages;
 	}
 
-	public void setMessager(List<Message> messages) {
+	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
 
