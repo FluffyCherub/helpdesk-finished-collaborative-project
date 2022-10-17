@@ -6,11 +6,11 @@ import com.fdmgroup.helpdeskapi.model.Ticket;
 
 public interface TicketService {
 
-    Object saveTicket(Ticket ticket);
+    Ticket saveTicket(Ticket ticket);
 
     List<Ticket> findAllTickets();
 
-    Object findTicketById(long id);
+    Ticket findTicketById(long id);
 
     void deleteTicketById(long id);
 
