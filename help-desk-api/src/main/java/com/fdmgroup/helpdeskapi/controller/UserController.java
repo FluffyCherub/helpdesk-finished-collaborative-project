@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.helpdeskapi.model.Admin;
+import com.fdmgroup.helpdeskapi.model.Client;
+import com.fdmgroup.helpdeskapi.model.Engineer;
 import com.fdmgroup.helpdeskapi.model.User;
 import com.fdmgroup.helpdeskapi.service.UserService;
 
@@ -30,11 +32,25 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@Operation(summary = "Save a user")
+	@Operation(summary = "Save an admin")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "User created"), })
 	@PostMapping("/admin")
 	public ResponseEntity<?> saveAdmin(@RequestBody Admin admin) {
 		return new ResponseEntity<>(userService.saveUser(admin), HttpStatus.CREATED);
+	}
+
+	@Operation(summary = "Save an engineer")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "User created"), })
+	@PostMapping("/engineer")
+	public ResponseEntity<?> saveEngineer(@RequestBody Engineer engineer) {
+		return new ResponseEntity<>(userService.saveUser(engineer), HttpStatus.CREATED);
+	}
+
+	@Operation(summary = "Save a client")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "User created"), })
+	@PostMapping("/client")
+	public ResponseEntity<?> saveClient(@RequestBody Client client) {
+		return new ResponseEntity<>(userService.saveUser(client), HttpStatus.CREATED);
 	}
 
 	@Operation(summary = "Find all users")
