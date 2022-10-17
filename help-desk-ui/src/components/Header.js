@@ -7,6 +7,7 @@ import InputAtom from './atoms/InputAtom';
 import NavbarMolecule from './molecules/NavbarMolecule';
 import IconsMolecule from './molecules/IconsMolecule';
 import HelpdeskOrganism from './organisms/HelpdeskOrganism';
+import CardMolecule from './molecules/CardMolecule';
 // import TitleAtom from './atoms/TitleAtom';
 
 const Header = () => {
@@ -22,7 +23,9 @@ const Header = () => {
         button=""
         placeholder="Search"
         aria-label="Search"/>
+    <CardMolecule/>
       </div>
+
   </nav>
     )
   }
