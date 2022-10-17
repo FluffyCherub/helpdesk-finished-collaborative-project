@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fdmgroup.helpdeskapi.model.Admin;
 import com.fdmgroup.helpdeskapi.model.User;
 import com.fdmgroup.helpdeskapi.service.UserService;
 
@@ -31,9 +32,9 @@ public class UserController {
 
 	@Operation(summary = "Save a user")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "User created"), })
-	@PostMapping
-	public ResponseEntity<?> saveUser(@RequestBody User user) {
-		return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+	@PostMapping("/admin")
+	public ResponseEntity<?> saveAdmin(@RequestBody Admin admin) {
+		return new ResponseEntity<>(userService.saveUser(admin), HttpStatus.CREATED);
 	}
 
 	@Operation(summary = "Find all users")
