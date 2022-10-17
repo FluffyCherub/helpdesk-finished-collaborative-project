@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,18 +58,6 @@ public class UserController {
 	public ResponseEntity<?> findAllUsers() {
 		List<User> users = userService.findAllUsers();
 		return new ResponseEntity<>(users, HttpStatus.OK);
-	}
-
-	@Operation(summary = "Find an user by id")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User found"),
-			@ApiResponse(responseCode = "404", description = "User not found"), })
-	@PutMapping
-	public ResponseEntity<?> updateUser(@RequestBody User user) {
-		if (userService.findUserById(user.getId()) != null) {
-			return new ResponseEntity<>(userService.saveUser(user), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-		}
 	}
 
 	@Operation(summary = "Find a user by id")

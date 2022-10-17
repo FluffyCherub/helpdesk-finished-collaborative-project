@@ -14,10 +14,6 @@ import lombok.AllArgsConstructor;
 public class UserSeviceImp implements UserService {
 	UserRepository userRepository;
 
-	public UserSeviceImp(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-
 	@Override
 	public User saveUser(User user) {
 		return userRepository.save(user);
