@@ -27,12 +27,12 @@ public class UserRequestController {
 
 	@PostMapping("/client")
 	ResponseEntity<?> saveClient(@RequestBody Object client) {
-		return new ResponseEntity<>(userRequestService.saveAdmin(client), HttpStatus.CREATED);
+		return new ResponseEntity<>(userRequestService.saveClient(client), HttpStatus.CREATED);
 	};
 
 	@PostMapping("/engineer")
 	ResponseEntity<?> saveEngineer(@RequestBody Object engineer) {
-		return new ResponseEntity<>(userRequestService.saveAdmin(engineer), HttpStatus.CREATED);
+		return new ResponseEntity<>(userRequestService.saveEngineer(engineer), HttpStatus.CREATED);
 	};
 
 	@GetMapping
