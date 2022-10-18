@@ -38,6 +38,12 @@ public class Ticket {
 	@Column(name = "resolved", nullable = false)
 	private boolean resolved;
 
+	@Column(name = "client_id")
+	private long clientId;
+
+	@Column(name = "engineer_id")
+	private long engineerId;
+
 	@PrePersist
 	private void prePersist() {
 		dateCreated = LocalDateTime.now();
