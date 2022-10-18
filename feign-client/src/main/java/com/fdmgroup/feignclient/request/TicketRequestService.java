@@ -13,30 +13,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "ticket-service", path = "/api/v1/tickets", url = "${helpdeskapi.server.url}")
 public interface TicketRequestService {
 
-    @PostMapping
-    Object saveTicket(@RequestBody Object ticket);
+	@PostMapping
+	Object saveTicket(@RequestBody Object ticket);
 
-    @GetMapping
-    List<Object> findAllTickets();
+	@GetMapping
+	List<Object> findAllTickets();
 
-    @PutMapping
-    Object updateTicket(Object ticket);
+	@GetMapping("/unassigned")
+	List<Object> findAllUnassignedTickets();
 
-    @GetMapping("/{id}")
-    Object findTicketById(@PathVariable long id);
+	@PutMapping
+	Object updateTicket(Object ticket);
 
-    @DeleteMapping("/{id}")
-    void deleteTicketById(@PathVariable long id);
+	@GetMapping("/{id}")
+	Object findTicketById(@PathVariable long id);
 
-    @GetMapping("/engineer/{id}")
-    Object findTicketsByEngineerId(@PathVariable Long id);
+	@DeleteMapping("/{id}")
+	void deleteTicketById(@PathVariable long id);
 
-    @GetMapping("/client/{id}")
-    Object findTicketsByClientId(@PathVariable Long id);
+	@GetMapping("/engineer/{id}")
+	Object findTicketsByEngineerId(@PathVariable Long id);
 
-    @GetMapping("/resolve/{id}")
-    Object resolveTicketById(@PathVariable Long id);
+	@GetMapping("/client/{id}")
+	Object findTicketsByClientId(@PathVariable Long id);
 
-    @GetMapping("/reopen/{id}")
-    Object reopenTicketById(@PathVariable Long id);
+	@GetMapping("/resolve/{id}")
+	Object resolveTicketById(@PathVariable Long id);
+
+	@GetMapping("/reopen/{id}")
+	Object reopenTicketById(@PathVariable Long id);
 }
