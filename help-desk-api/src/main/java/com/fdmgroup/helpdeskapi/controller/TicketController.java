@@ -23,15 +23,20 @@ import com.fdmgroup.helpdeskapi.service.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/tickets")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TicketController {
 
 	Logger logger = LoggerFactory.getLogger(TicketController.class);
+
+	@NonNull
 	private TicketService ticketService;
+
+	@NonNull
 	private MessageService messageService;
 
 	@Operation(summary = "Save a ticket")

@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.feignclient.request.MessageRequestService;
 
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/gateway/messages")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MessageRequestController {
 
     Logger logger = LoggerFactory.getLogger(MessageRequestController.class);
+
+    @NonNull
     private MessageRequestService messageRequestService;
 
     @PostMapping

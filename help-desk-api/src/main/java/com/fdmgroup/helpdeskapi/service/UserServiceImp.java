@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 import com.fdmgroup.helpdeskapi.model.User;
 import com.fdmgroup.helpdeskapi.repository.UserRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImp implements UserService {
 
 	Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
+
+	@NonNull
 	UserRepository userRepository;
 
 	@Override
