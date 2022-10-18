@@ -10,7 +10,7 @@ import com.fdmgroup.helpdeskapi.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
 @Service
-// @AllArgsConstructor
+@AllArgsConstructor
 public class UserSeviceImp implements UserService {
 	UserRepository userRepository;
 

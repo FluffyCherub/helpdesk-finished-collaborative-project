@@ -6,14 +6,16 @@ import com.fdmgroup.helpdeskapi.model.Ticket;
 
 public interface TicketService {
 
-    Ticket saveTicket(Ticket ticket);
+	Ticket saveTicket(Ticket ticket);
 
-    List<Ticket> findAllTickets();
+	List<Ticket> findAllTickets();
 
-    Ticket findTicketById(long id);
+	Ticket findTicketById(long id);
 
-    void deleteTicketById(long id);
+	void deleteTicketById(long id);
 
-    List<Ticket> findTicketsByEngineerId(long id);
+	List<Ticket> findTicketsByEngineerId(long id);
+
+	List<Ticket> findTicketsByClientId(long id);
 
 }
