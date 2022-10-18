@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
@@ -38,6 +37,9 @@ public class Ticket {
 
 	@Column(name = "resolved", nullable = false)
 	private boolean resolved;
+
+	@Column(name = "client_id")
+	private long clientId;
 
 	@Column(name = "engineer_id")
 	private long engineerId;
