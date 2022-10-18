@@ -1,5 +1,6 @@
 package com.fdmgroup.helpdeskapi.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -29,6 +31,33 @@ public class Ticket {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Message> messages;
+
+	@Column(name = "date_created", nullable = false)
+	private LocalDateTime dateCreated;
+
+	@Column(name = "resolved", nullable = false)
+	private boolean resolved;
+
+	@PrePersist
+	private void prePersist() {
+		dateCreated = LocalDateTime.now();
+	}
+
+	public void setDateCreated(LocalDateTime dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public LocalDateTime getDateCreated() {
+		return dateCreated;
+	}
+
+	public boolean getResolved() {
+		return resolved;
+	}
+
+	public void setResolved(boolean resolved) {
+		this.resolved = resolved;
+	}
 
 	public String getTitle() {
 		return title;
