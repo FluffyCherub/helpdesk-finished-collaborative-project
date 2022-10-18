@@ -20,6 +20,7 @@ class Form extends Component {
                 type= "text"
                 className="form-control" 
                 name="name"
+                
                 />
               </div>
             </form>
