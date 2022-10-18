@@ -9,12 +9,21 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "Users")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "userType")
+@JsonSubTypes({
+		@JsonSubTypes.Type(value = Engineer.class, name = "Engineer"),
+		@JsonSubTypes.Type(value = Client.class, name = "Client"),
+		@JsonSubTypes.Type(value = Admin.class, name = "Admin")
+})
 public abstract class User {
 	@Id // Make this field the primary id
 	@GeneratedValue(strategy = GenerationType.AUTO)
