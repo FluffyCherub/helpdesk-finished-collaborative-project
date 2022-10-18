@@ -2,6 +2,8 @@ package com.fdmgroup.helpdeskapi.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +28,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MessageController {
 
+    private Logger logger = LoggerFactory.getLogger(MessageController.class);
+
     private MessageService messageService;
 
     @Operation(summary = "Save a message")
@@ -34,6 +38,7 @@ public class MessageController {
     })
     @PostMapping
     public ResponseEntity<?> saveMessage(@RequestBody Message message) {
+        logger.info("Saving message: {}", message);
         return new ResponseEntity<>(messageService.saveMessage(message), HttpStatus.CREATED);
     }
 
@@ -43,6 +48,7 @@ public class MessageController {
     })
     @GetMapping
     public ResponseEntity<?> findAllMessages() {
+        logger.info("Finding all messages");
         List<Message> messages = messageService.findAllMessages();
         return new ResponseEntity<>(messages, HttpStatus.OK);
     }
@@ -55,8 +61,10 @@ public class MessageController {
     @PutMapping
     public ResponseEntity<?> updateMessage(@RequestBody Message message) {
         if (messageService.findMessageById(message.getId()) != null) {
+            logger.info("Updating message: {}", message);
             return new ResponseEntity<>(messageService.saveMessage(message), HttpStatus.OK);
         } else {
+            logger.warn("Message not found: {}", message);
             return new ResponseEntity<>("Message not found", HttpStatus.NOT_FOUND);
         }
     }
@@ -69,8 +77,10 @@ public class MessageController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findMessageById(@PathVariable long id) {
         if (messageService.findMessageById(id) != null) {
+            logger.info("Finding message by id: {}", id);
             return new ResponseEntity<>(messageService.findMessageById(id), HttpStatus.OK);
         } else {
+            logger.warn("Message not found: {}", id);
             return new ResponseEntity<>("Message not found", HttpStatus.NOT_FOUND);
         }
     }
@@ -84,8 +94,10 @@ public class MessageController {
     public ResponseEntity<?> deleteMessageById(@PathVariable long id) {
         if (messageService.findMessageById(id) != null) {
             messageService.deleteMessageById(id);
+            logger.info("Deleting message by id: {}", id);
             return new ResponseEntity<>("Message deleted", HttpStatus.OK);
         } else {
+            logger.warn("Message not found: {}", id);
             return new ResponseEntity<>("Message not found", HttpStatus.NOT_FOUND);
         }
     }
