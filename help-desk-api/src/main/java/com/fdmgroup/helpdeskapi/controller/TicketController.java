@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fdmgroup.helpdeskapi.model.Message;
 import com.fdmgroup.helpdeskapi.model.Ticket;
+import com.fdmgroup.helpdeskapi.service.MessageService;
 import com.fdmgroup.helpdeskapi.service.TicketService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,9 +27,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 public class TicketController {
 
 	private TicketService ticketService;
+	private MessageService messageService;
 
-	public TicketController(TicketService ticketService) {
+	public TicketController(TicketService ticketService, MessageService messageService) {
 		this.ticketService = ticketService;
+		this.messageService = messageService;
 	}
 
 	@Operation(summary = "Save a ticket")
@@ -109,7 +113,6 @@ public class TicketController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
 	@GetMapping("/engineer/{id}")
 	public ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
-
 		List<Ticket> tickets = ticketService.findTicketsByEngineerId(id);
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
@@ -132,6 +135,38 @@ public class TicketController {
 			return new ResponseEntity<>("Ticket deleted", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@Operation(summary = "Add a message to a ticket by ticket id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket found"),
+			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
+	@PutMapping("/addMessage/{ticketId}")
+	public ResponseEntity<?> addMessageToTicketByTicketId(@PathVariable Long ticketId, @RequestBody Message message) {
+		if (ticketService.findTicketById(ticketId) != null) {
+			Ticket ticket = ticketService.findTicketById(ticketId);
+			ticket.addMessage(message);
+			ticketService.saveTicket(ticket);
+			return new ResponseEntity<>(ticket, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@Operation(summary = "Delete a message from a ticket by ticket id and message id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket and message found"),
+			@ApiResponse(responseCode = "404", description = "Ticket or message id not found"), })
+	@DeleteMapping("/deleteMessage/{ticketId}/{messageId}")
+	public ResponseEntity<?> deleteMessageByTicketIdAndMessageId(@PathVariable Long ticketId,
+			@PathVariable Long messageId) {
+		if (ticketService.findTicketById(ticketId) != null && messageService.findMessageById(messageId) != null) {
+			Ticket ticket = ticketService.findTicketById(ticketId);
+			Message message = messageService.findMessageById(messageId);
+			ticket.removeMessage(message);
+			ticketService.saveTicket(ticket);
+			return new ResponseEntity<>(ticket, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Ticket id or message id not found", HttpStatus.NOT_FOUND);
 		}
 	}
 
