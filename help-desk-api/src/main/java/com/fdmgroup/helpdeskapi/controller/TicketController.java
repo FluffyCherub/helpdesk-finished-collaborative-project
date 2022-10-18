@@ -45,6 +45,14 @@ public class TicketController {
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
 
+	@Operation(summary = "Find all unassigned tickets")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
+	@GetMapping("/unassigned")
+	public ResponseEntity<?> findAllUnassignedTickets() {
+		List<Ticket> unassignedTickets = ticketService.findAllUnassignedTickets();
+		return new ResponseEntity<>(unassignedTickets, HttpStatus.OK);
+	}
+
 	@Operation(summary = "Update a ticket")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket found"),
 			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
@@ -52,6 +60,34 @@ public class TicketController {
 	public ResponseEntity<?> updateTicket(@RequestBody Ticket ticket) {
 		if (ticketService.findTicketById(ticket.getId()) != null) {
 			return new ResponseEntity<>(ticketService.saveTicket(ticket), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@Operation(summary = "Resolve a ticket by its id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket resolved"),
+			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
+	@GetMapping("/resolve/{id}")
+	public ResponseEntity<?> resolveTicketById(@PathVariable Long id) {
+		Ticket resolvedTicket = ticketService.findTicketById(id);
+		if (resolvedTicket != null) {
+			resolvedTicket.setResolved(true);
+			return new ResponseEntity<>(ticketService.saveTicket(resolvedTicket), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@Operation(summary = "Re-open a ticket by its id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket re-opened"),
+			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
+	@GetMapping("/reopen/{id}")
+	public ResponseEntity<?> reopenTicketById(@PathVariable Long id) {
+		Ticket reopenedTicket = ticketService.findTicketById(id);
+		if (reopenedTicket != null) {
+			reopenedTicket.setResolved(false);
+			return new ResponseEntity<>(ticketService.saveTicket(reopenedTicket), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
 		}
@@ -72,7 +108,6 @@ public class TicketController {
 	@Operation(summary = "Find tickets by engineer id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
 	@GetMapping("/engineer/{id}")
-
 	public ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
 
 		List<Ticket> tickets = ticketService.findTicketsByEngineerId(id);
@@ -91,7 +126,7 @@ public class TicketController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket deleted"),
 			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteTicketById(@PathVariable long id) {
+	public ResponseEntity<?> deleteTicketById(@PathVariable Long id) {
 		if (ticketService.findTicketById(id) != null) {
 			ticketService.deleteTicketById(id);
 			return new ResponseEntity<>("Ticket deleted", HttpStatus.OK);

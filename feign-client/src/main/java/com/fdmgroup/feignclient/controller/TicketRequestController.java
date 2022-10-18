@@ -20,42 +20,57 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TicketRequestController {
 
-    private TicketRequestService ticketRequestService;
+	private TicketRequestService ticketRequestService;
 
-    @PostMapping
-    ResponseEntity<?> saveTicket(@RequestBody Object ticket) {
-        return new ResponseEntity<>(ticketRequestService.saveTicket(ticket), HttpStatus.CREATED);
-    };
+	@PostMapping
+	ResponseEntity<?> saveTicket(@RequestBody Object ticket) {
+		return new ResponseEntity<>(ticketRequestService.saveTicket(ticket), HttpStatus.CREATED);
+	};
 
-    @GetMapping
-    ResponseEntity<?> findAllTickets() {
-        return new ResponseEntity<>(ticketRequestService.findAllTickets(), HttpStatus.OK);
-    };
+	@GetMapping
+	ResponseEntity<?> findAllTickets() {
+		return new ResponseEntity<>(ticketRequestService.findAllTickets(), HttpStatus.OK);
+	};
 
-    @PutMapping
-    ResponseEntity<?> updateTicket(@RequestBody Object ticket) {
-        return new ResponseEntity<>(ticketRequestService.updateTicket(ticket), HttpStatus.OK);
-    };
+	@GetMapping("/unassigned")
+	ResponseEntity<?> findAllUnassignedTickets() {
+		return new ResponseEntity<>(ticketRequestService.findAllUnassignedTickets(), HttpStatus.OK);
+	};
 
-    @GetMapping("/{id}")
-    ResponseEntity<?> findTicketById(@PathVariable long id) {
-        return new ResponseEntity<>(ticketRequestService.findTicketById(id), HttpStatus.OK);
-    };
+	@PutMapping
+	ResponseEntity<?> updateTicket(@RequestBody Object ticket) {
+		return new ResponseEntity<>(ticketRequestService.updateTicket(ticket), HttpStatus.OK);
+	};
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteTicketById(@PathVariable long id) {
-        ticketRequestService.deleteTicketById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    };
+	@GetMapping("/{id}")
+	ResponseEntity<?> findTicketById(@PathVariable long id) {
+		return new ResponseEntity<>(ticketRequestService.findTicketById(id), HttpStatus.OK);
+	};
 
-    @GetMapping("/engineer/{id}")
-    ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
-        return new ResponseEntity<>(ticketRequestService.findTicketsByEngineerId(id), HttpStatus.OK);
-    }
+	@DeleteMapping("/{id}")
+	ResponseEntity<?> deleteTicketById(@PathVariable long id) {
+		ticketRequestService.deleteTicketById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	};
 
-    @GetMapping("/client/{id}")
-    ResponseEntity<?> findTicketsByClientId(@PathVariable Long id) {
-        return new ResponseEntity<>(ticketRequestService.findTicketsByClientId(id), HttpStatus.OK);
-    }
+	@GetMapping("/engineer/{id}")
+	ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
+		return new ResponseEntity<>(ticketRequestService.findTicketsByEngineerId(id), HttpStatus.OK);
+	}
+
+	@GetMapping("/client/{id}")
+	ResponseEntity<?> findTicketsByClientId(@PathVariable Long id) {
+		return new ResponseEntity<>(ticketRequestService.findTicketsByClientId(id), HttpStatus.OK);
+	}
+
+	@GetMapping("/resolve/{id}")
+	public ResponseEntity<?> resolveTicketById(@PathVariable Long id) {
+		return new ResponseEntity<>(ticketRequestService.resolveTicketById(id), HttpStatus.OK);
+	}
+
+	@GetMapping("/reopen/{id}")
+	public ResponseEntity<?> reopenTicketById(@PathVariable Long id) {
+		return new ResponseEntity<>(ticketRequestService.reopenTicketById(id), HttpStatus.OK);
+	}
 
 }
