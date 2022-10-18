@@ -80,7 +80,8 @@ public class TicketRequestController {
     }
 
     @DeleteMapping("/deleteMessage/{ticketId}/{messageId}")
-    public ResponseEntity<?> deleteMessageById(@PathVariable long ticketId, @PathVariable long messageId) {
+    public ResponseEntity<?> deleteMessageByTicketIdAndMessageId(@PathVariable long ticketId,
+            @PathVariable long messageId) {
         return new ResponseEntity<>(ticketRequestService.deleteMessageByTicketIdAndMessageId(ticketId, messageId),
                 HttpStatus.OK);
     }
