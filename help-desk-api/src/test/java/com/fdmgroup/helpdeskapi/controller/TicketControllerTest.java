@@ -78,7 +78,7 @@ public class TicketControllerTest {
         // given
         given(ticketService.findTicketById(1)).willReturn(ticket1);
         // when
-        ticketController.deleteTicketById(1);
+        ticketController.deleteTicketById(1L);
         // then
         verify(ticketService).findTicketById(1);
         verify(ticketService).deleteTicketById(1);
