@@ -27,4 +27,10 @@ public interface TicketRequestService {
 
     @DeleteMapping("/{id}")
     void deleteTicketById(@PathVariable long id);
+
+    @GetMapping("/engineer/{id}")
+    Object findTicketsByEngineerId(@PathVariable Long id);
+
+    @GetMapping("/client/{id}")
+    Object findTicketsByClientId(@PathVariable Long id);
 }
