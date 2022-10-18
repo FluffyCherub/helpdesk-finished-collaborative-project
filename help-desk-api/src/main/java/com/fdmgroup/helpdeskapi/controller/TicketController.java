@@ -21,18 +21,15 @@ import com.fdmgroup.helpdeskapi.service.TicketService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/tickets")
+@AllArgsConstructor
 public class TicketController {
 
 	private TicketService ticketService;
 	private MessageService messageService;
-
-	public TicketController(TicketService ticketService, MessageService messageService) {
-		this.ticketService = ticketService;
-		this.messageService = messageService;
-	}
 
 	@Operation(summary = "Save a ticket")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Ticket created"), })

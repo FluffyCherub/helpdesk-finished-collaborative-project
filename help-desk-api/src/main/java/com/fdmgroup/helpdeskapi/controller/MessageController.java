@@ -19,16 +19,14 @@ import com.fdmgroup.helpdeskapi.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/messages")
+@AllArgsConstructor
 public class MessageController {
 
     private MessageService messageService;
-
-    public MessageController(MessageService messageService) {
-        this.messageService = messageService;
-    }
 
     @Operation(summary = "Save a message")
     @ApiResponses(value = {

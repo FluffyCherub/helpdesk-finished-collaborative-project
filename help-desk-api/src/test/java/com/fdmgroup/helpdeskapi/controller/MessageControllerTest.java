@@ -54,10 +54,10 @@ public class MessageControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(messageController).build();
 
         message1 = new Message();
-        message1.setText("Test Message 1");
+        message1.setBody("Test Message 1");
 
         message2 = new Message();
-        message2.setText("Test Message 2");
+        message2.setBody("Test Message 2");
 
         messages = List.of(message1, message2);
     }
@@ -82,7 +82,7 @@ public class MessageControllerTest {
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         for (Message message : messages) {
-            assertThat(response.getContentAsString()).contains(message.getText());
+            assertThat(response.getContentAsString()).contains(message.getBody());
         }
         verify(messageService, times(1)).findAllMessages();
     }

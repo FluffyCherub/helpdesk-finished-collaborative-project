@@ -65,10 +65,10 @@ public class TicketControllerTest {
         ticket2.setTitle("Test Ticket 2");
 
         message1 = new Message();
-        message1.setText("Test Message 1");
+        message1.setBody("Test Message 1");
 
         message2 = new Message();
-        message2.setText("Test Message 2");
+        message2.setBody("Test Message 2");
 
         tickets = List.of(ticket1, ticket2);
     }

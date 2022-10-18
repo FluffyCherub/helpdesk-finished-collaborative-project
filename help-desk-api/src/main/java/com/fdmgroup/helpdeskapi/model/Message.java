@@ -12,8 +12,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Setter;
 
+@Data
 @Entity
 public class Message {
 
@@ -35,34 +37,6 @@ public class Message {
     @PrePersist
     private void prePersist() {
         dateCreated = LocalDateTime.now();
-    }
-
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getText() {
-        return body;
-    }
-
-    public void setText(String text) {
-        this.body = text;
     }
 
 }

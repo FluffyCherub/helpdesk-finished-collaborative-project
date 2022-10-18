@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 import com.fdmgroup.helpdeskapi.model.Message;
 import com.fdmgroup.helpdeskapi.repository.MessageRepository;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class MessageServiceImp implements MessageService {
 
     MessageRepository messageRepository;
-
-    public MessageServiceImp(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
-    }
 
     @Override
     public Message saveMessage(Message message) {
