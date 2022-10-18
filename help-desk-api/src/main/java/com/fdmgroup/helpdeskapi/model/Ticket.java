@@ -39,10 +39,10 @@ public class Ticket {
 	private boolean resolved;
 
 	@Column(name = "client_id")
-	private long clientId;
+	private Long clientId;
 
 	@Column(name = "engineer_id")
-	private long engineerId;
+	private Long engineerId;
 
 	@PrePersist
 	private void prePersist() {
