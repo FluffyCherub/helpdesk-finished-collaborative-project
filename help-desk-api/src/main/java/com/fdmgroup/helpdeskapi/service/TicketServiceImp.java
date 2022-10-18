@@ -49,7 +49,7 @@ public class TicketServiceImp implements TicketService {
 	@Override
 	public List<Ticket> findAllUnassignedTickets() {
 		// TODO Auto-generated method stub
-		return ticketRepository.findTicketsByEngineerIdIsNull();
+		return ticketRepository.findTicketsByEngineerIdIsNullAndResolvedFalse();
 	}
 
 }
