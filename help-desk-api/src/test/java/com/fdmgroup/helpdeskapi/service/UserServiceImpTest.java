@@ -21,7 +21,7 @@ import com.fdmgroup.helpdeskapi.model.User;
 import com.fdmgroup.helpdeskapi.repository.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserServiceImpTest {
 
 	@Mock
 	private UserRepository userRepository;
