@@ -72,7 +72,7 @@ public class TicketController {
 	@Operation(summary = "Find a ticket by engineer id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
 	@GetMapping("/engineer/{id}")
-	public ResponseEntity<?> findTicketsByEngineerId(long id) {
+	public ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
 		List<Ticket> tickets = ticketService.findTicketsByEngineerId(id);
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
