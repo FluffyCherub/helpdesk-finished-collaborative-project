@@ -30,4 +30,7 @@ public interface TicketRequestService {
 
     @GetMapping("/engineer/{id}")
     Object findTicketsByEngineerId(@PathVariable Long id);
+
+    @GetMapping("/client/{id}")
+    Object findTicketsByClientId(@PathVariable Long id);
 }

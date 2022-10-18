@@ -53,4 +53,9 @@ public class TicketRequestController {
         return new ResponseEntity<>(ticketRequestService.findTicketsByEngineerId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/client/{id}")
+    ResponseEntity<?> findTicketsByClientId(@PathVariable Long id) {
+        return new ResponseEntity<>(ticketRequestService.findTicketsByClientId(id), HttpStatus.OK);
+    }
+
 }
