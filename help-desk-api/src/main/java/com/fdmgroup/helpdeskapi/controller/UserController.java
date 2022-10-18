@@ -2,6 +2,8 @@ package com.fdmgroup.helpdeskapi.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,12 +30,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserController {
 
+	Logger logger = LoggerFactory.getLogger(UserController.class);
 	private UserService userService;
 
 	@Operation(summary = "Save an admin")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "User created"), })
 	@PostMapping("/admin")
 	public ResponseEntity<?> saveAdmin(@RequestBody Admin admin) {
+		logger.info("Saving admin: {}", admin);
 		return new ResponseEntity<>(userService.saveUser(admin), HttpStatus.CREATED);
 	}
 
@@ -41,6 +45,7 @@ public class UserController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "User created"), })
 	@PostMapping("/engineer")
 	public ResponseEntity<?> saveEngineer(@RequestBody Engineer engineer) {
+		logger.info("Saving engineer: {}", engineer);
 		return new ResponseEntity<>(userService.saveUser(engineer), HttpStatus.CREATED);
 	}
 
@@ -48,6 +53,7 @@ public class UserController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "User created"), })
 	@PostMapping("/client")
 	public ResponseEntity<?> saveClient(@RequestBody Client client) {
+		logger.info("Saving client: {}", client);
 		return new ResponseEntity<>(userService.saveUser(client), HttpStatus.CREATED);
 	}
 
@@ -55,6 +61,7 @@ public class UserController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Users found"), })
 	@GetMapping
 	public ResponseEntity<?> findAllUsers() {
+		logger.info("Finding all users");
 		List<User> users = userService.findAllUsers();
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
@@ -65,8 +72,10 @@ public class UserController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findUserById(@PathVariable long id) {
 		if (userService.findUserById(id) != null) {
+			logger.info("Finding user with id: {}", id);
 			return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
 		} else {
+			logger.warn("User with id: {} not found", id);
 			return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -77,9 +86,11 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUserById(@PathVariable long id) {
 		if (userService.findUserById(id) != null) {
+			logger.info("Deleting user with id: {}", id);
 			userService.deleteUserById(id);
 			return new ResponseEntity<>("User deleted", HttpStatus.OK);
 		} else {
+			logger.warn("User with id: {} not found", id);
 			return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
 		}
 	}

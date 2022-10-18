@@ -49,48 +49,12 @@ public class Ticket {
 		dateCreated = LocalDateTime.now();
 	}
 
-	public void setDateCreated(LocalDateTime dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public LocalDateTime getDateCreated() {
-		return dateCreated;
-	}
-
-	public boolean getResolved() {
-		return resolved;
-	}
-
-	public void setResolved(boolean resolved) {
-		this.resolved = resolved;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public void addMessage(Message message) {
 		messages.add(message);
 	}
 
 	public void removeMessage(Message message) {
 		messages.remove(message);
-	}
-
-	public List<Message> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
-	}
-
-	public long getId() {
-		return id;
 	}
 
 }

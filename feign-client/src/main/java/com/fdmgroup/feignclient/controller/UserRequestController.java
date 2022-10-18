@@ -1,5 +1,7 @@
 package com.fdmgroup.feignclient.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,36 +20,44 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/gateway/users")
 @AllArgsConstructor
 public class UserRequestController {
+
+	Logger logger = LoggerFactory.getLogger(UserRequestController.class);
 	private UserRequestService userRequestService;
 
 	@PostMapping("/admin")
 	ResponseEntity<?> saveAdmin(@RequestBody Object admin) {
+		logger.info("Feign Client: Saving admin: {}", admin);
 		return new ResponseEntity<>(userRequestService.saveAdmin(admin), HttpStatus.CREATED);
-	};
+	}
 
 	@PostMapping("/client")
 	ResponseEntity<?> saveClient(@RequestBody Object client) {
+		logger.info("Feign Client: Saving client: {}", client);
 		return new ResponseEntity<>(userRequestService.saveClient(client), HttpStatus.CREATED);
-	};
+	}
 
 	@PostMapping("/engineer")
 	ResponseEntity<?> saveEngineer(@RequestBody Object engineer) {
+		logger.info("Feign Client: Saving engineer: {}", engineer);
 		return new ResponseEntity<>(userRequestService.saveEngineer(engineer), HttpStatus.CREATED);
-	};
+	}
 
 	@GetMapping
 	ResponseEntity<?> findAllUsers() {
+		logger.info("Feign Client: Finding all users");
 		return new ResponseEntity<>(userRequestService.findAllUsers(), HttpStatus.OK);
-	};
+	}
 
 	@GetMapping("/{id}")
 	ResponseEntity<?> findUserById(@PathVariable long id) {
+		logger.info("Feign Client: Finding user by id: {}", id);
 		return new ResponseEntity<>(userRequestService.findUserById(id), HttpStatus.OK);
-	};
+	}
 
 	@DeleteMapping("/{id}")
 	ResponseEntity<?> deleteUserById(@PathVariable long id) {
+		logger.info("Feign Client: Deleting user by id: {}", id);
 		userRequestService.deleteUserById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
-	};
+	}
 }
