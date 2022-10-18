@@ -45,6 +45,14 @@ public class TicketController {
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
 
+	@Operation(summary = "Find all unassigned tickets")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
+	@GetMapping("/unassigned")
+	public ResponseEntity<?> findAllUnassignedTickets() {
+		List<Ticket> unassignedTickets = ticketService.findAllUnassignedTickets();
+		return new ResponseEntity<>(unassignedTickets, HttpStatus.OK);
+	}
+
 	@Operation(summary = "Update a ticket")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket found"),
 			@ApiResponse(responseCode = "404", description = "Ticket not found"), })

@@ -46,4 +46,10 @@ public class TicketServiceImp implements TicketService {
 		return ticketRepository.findTicketsByClientId(id);
 	}
 
+	@Override
+	public List<Ticket> findAllUnassignedTickets() {
+		// TODO Auto-generated method stub
+		return ticketRepository.findTicketsByEngineerIdIsNull();
+	}
+
 }
