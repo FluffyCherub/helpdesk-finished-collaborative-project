@@ -8,6 +8,8 @@ import com.fdmgroup.helpdeskapi.model.Ticket;
 
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    List<Ticket> findTicketsByEngineerId(Long id);
+	List<Ticket> findTicketsByClientId(Long id);
+
+	List<Ticket> findTicketsByEngineerId(Long id);
 
 }
