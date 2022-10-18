@@ -11,11 +11,13 @@ class Tickets extends Component {
     axios
       .get("http://localhost:8081/gateway/tickets")
       .then((response) => this.setState({ tickets: response.data }));
-  }
+  };
 
-  deletePlace = (id) => {
+
+  deleteTicket = (id) => {
     axios.delete("http://localhost:8081/gateway/tickets/" + id);
   };
+
 
   render() {
     const { tickets } = this.state;
@@ -25,7 +27,7 @@ class Tickets extends Component {
           <Ticket
             key={ticket.id}
             ticket={ticket}
-            // handleDeleteTicket={this.handleDeleteTicket.bind(this, ticket.id)}
+            handleDeleteTicket={this.deleteTicket.bind(this, ticket.id)}
           />
         ))}
       </React.Fragment>

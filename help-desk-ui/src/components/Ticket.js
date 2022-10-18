@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+
 class Ticket  extends Component {
   state = {
     showInfo: false,
@@ -13,10 +14,23 @@ class Ticket  extends Component {
   onHandleDelete = () => {
     this.props.handleDeleteTicket();
   };
-
+  state = {
+    title:"",
+    id:"",
+    errors:{},
+  };
+  
   render() {
     const { showInfo } = this.state; // destructuring
     const { id, title} = this.props.ticket;
+    if (title === "") {
+    this.setState({errors: {title:"title is required."}});
+    return;
+  } 
+  if (id === "") {
+    this.setState({errors: {id:"id is required."}});
+    return;
+  } 
     return (
       <div className="card mb-1">
         <div className="card-header">

@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios';
 import ButtonAtom from './atoms/ButtonAtom';
 import HomeAtom from './atoms/HomeAtom';
 import RegisterAtom from './atoms/RegisterAtom';
@@ -23,7 +24,6 @@ const Header = () => {
         button=""
         placeholder="Search"
         aria-label="Search"/>
-    <CardMolecule/>
       </div>
 
   </nav>
