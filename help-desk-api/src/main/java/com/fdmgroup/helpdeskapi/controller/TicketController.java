@@ -2,6 +2,8 @@ package com.fdmgroup.helpdeskapi.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +30,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TicketController {
 
+	Logger logger = LoggerFactory.getLogger(TicketController.class);
 	private TicketService ticketService;
 	private MessageService messageService;
 
@@ -35,6 +38,7 @@ public class TicketController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Ticket created"), })
 	@PostMapping
 	public ResponseEntity<?> saveTicket(@RequestBody Ticket ticket) {
+		logger.info("Saving ticket: {}", ticket);
 		return new ResponseEntity<>(ticketService.saveTicket(ticket), HttpStatus.CREATED);
 	}
 
@@ -42,6 +46,7 @@ public class TicketController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
 	@GetMapping
 	public ResponseEntity<?> findAllTickets() {
+		logger.info("Finding all tickets");
 		List<Ticket> tickets = ticketService.findAllTickets();
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
@@ -50,6 +55,7 @@ public class TicketController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
 	@GetMapping("/unassigned")
 	public ResponseEntity<?> findAllUnassignedTickets() {
+		logger.info("Finding all unassigned tickets");
 		List<Ticket> unassignedTickets = ticketService.findAllUnassignedTickets();
 		return new ResponseEntity<>(unassignedTickets, HttpStatus.OK);
 	}
@@ -60,8 +66,10 @@ public class TicketController {
 	@PutMapping
 	public ResponseEntity<?> updateTicket(@RequestBody Ticket ticket) {
 		if (ticketService.findTicketById(ticket.getId()) != null) {
+			logger.info("Updating ticket: {}", ticket);
 			return new ResponseEntity<>(ticketService.saveTicket(ticket), HttpStatus.OK);
 		} else {
+			logger.warn("Ticket not found: {}", ticket);
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -73,9 +81,11 @@ public class TicketController {
 	public ResponseEntity<?> resolveTicketById(@PathVariable Long id) {
 		Ticket resolvedTicket = ticketService.findTicketById(id);
 		if (resolvedTicket != null) {
+			logger.info("Resolving ticket: {}", resolvedTicket);
 			resolvedTicket.setResolved(true);
 			return new ResponseEntity<>(ticketService.saveTicket(resolvedTicket), HttpStatus.OK);
 		} else {
+			logger.warn("Ticket not found: {}", resolvedTicket);
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -87,9 +97,11 @@ public class TicketController {
 	public ResponseEntity<?> reopenTicketById(@PathVariable Long id) {
 		Ticket reopenedTicket = ticketService.findTicketById(id);
 		if (reopenedTicket != null) {
+			logger.info("Re-opening ticket: {}", reopenedTicket);
 			reopenedTicket.setResolved(false);
 			return new ResponseEntity<>(ticketService.saveTicket(reopenedTicket), HttpStatus.OK);
 		} else {
+			logger.warn("Ticket not found: {}", reopenedTicket);
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -101,9 +113,11 @@ public class TicketController {
 	public ResponseEntity<?> assignTicketEngineerById(@PathVariable Long engineerId, @PathVariable Long ticketId) {
 		Ticket ticketToAssign = ticketService.findTicketById(ticketId);
 		if (ticketToAssign != null) {
+			logger.info("Assigning ticket: {} to engineer: {}", ticketToAssign, engineerId);
 			ticketToAssign.setEngineerId(engineerId);
 			return new ResponseEntity<>(ticketService.saveTicket(ticketToAssign), HttpStatus.OK);
 		} else {
+			logger.warn("Ticket not found: {}", ticketToAssign);
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -114,8 +128,10 @@ public class TicketController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findTicketById(@PathVariable long id) {
 		if (ticketService.findTicketById(id) != null) {
+			logger.info("Finding ticket by id: {}", id);
 			return new ResponseEntity<>(ticketService.findTicketById(id), HttpStatus.OK);
 		} else {
+			logger.warn("Ticket not found: {}", id);
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -125,6 +141,7 @@ public class TicketController {
 	@GetMapping("/engineer/{id}")
 	public ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
 		List<Ticket> tickets = ticketService.findTicketsByEngineerId(id);
+		logger.info("Finding tickets by engineer id: {}", id);
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
 
@@ -132,6 +149,7 @@ public class TicketController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
 	@GetMapping("/client/{id}")
 	public ResponseEntity<?> findTicketsByClientId(@PathVariable Long id) {
+		logger.info("Finding tickets by client id: {}", id);
 		List<Ticket> tickets = ticketService.findTicketsByClientId(id);
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
@@ -142,9 +160,11 @@ public class TicketController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteTicketById(@PathVariable Long id) {
 		if (ticketService.findTicketById(id) != null) {
+			logger.info("Deleting ticket by id: {}", id);
 			ticketService.deleteTicketById(id);
 			return new ResponseEntity<>("Ticket deleted", HttpStatus.OK);
 		} else {
+			logger.warn("Ticket not found: {}", id);
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -155,11 +175,13 @@ public class TicketController {
 	@PutMapping("/addMessage/{ticketId}")
 	public ResponseEntity<?> addMessageToTicketByTicketId(@PathVariable Long ticketId, @RequestBody Message message) {
 		if (ticketService.findTicketById(ticketId) != null) {
+			logger.info("Adding message to ticket: {}", ticketId);
 			Ticket ticket = ticketService.findTicketById(ticketId);
 			ticket.addMessage(message);
 			ticketService.saveTicket(ticket);
 			return new ResponseEntity<>(ticket, HttpStatus.OK);
 		} else {
+			logger.warn("Ticket not found: ticket id: {}", ticketId);
 			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -171,12 +193,14 @@ public class TicketController {
 	public ResponseEntity<?> deleteMessageByTicketIdAndMessageId(@PathVariable Long ticketId,
 			@PathVariable Long messageId) {
 		if (ticketService.findTicketById(ticketId) != null && messageService.findMessageById(messageId) != null) {
+			logger.info("Deleting message: {} from ticket: {}", messageId, ticketId);
 			Ticket ticket = ticketService.findTicketById(ticketId);
 			Message message = messageService.findMessageById(messageId);
 			ticket.removeMessage(message);
 			ticketService.saveTicket(ticket);
 			return new ResponseEntity<>(ticket, HttpStatus.OK);
 		} else {
+			logger.warn("Ticket or message not found: ticket id: {} message id: {}", ticketId, messageId);
 			return new ResponseEntity<>("Ticket id or message id not found", HttpStatus.NOT_FOUND);
 		}
 	}
