@@ -64,7 +64,7 @@ public class UserController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User found"),
 			@ApiResponse(responseCode = "404", description = "User not found"), })
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findTicketById(@PathVariable long id) {
+	public ResponseEntity<?> findUserById(@PathVariable long id) {
 		if (userService.findUserById(id) != null) {
 			return new ResponseEntity<>(userService.findUserById(id), HttpStatus.OK);
 		} else {
@@ -76,7 +76,7 @@ public class UserController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User deleted"),
 			@ApiResponse(responseCode = "404", description = "User not found"), })
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteTicketById(@PathVariable long id) {
+	public ResponseEntity<?> deleteUserById(@PathVariable long id) {
 		if (userService.findUserById(id) != null) {
 			userService.deleteUserById(id);
 			return new ResponseEntity<>("User deleted", HttpStatus.OK);
