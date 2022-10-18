@@ -69,11 +69,21 @@ public class TicketController {
 		}
 	}
 
-	@Operation(summary = "Find a ticket by engineer id")
+	@Operation(summary = "Find tickets by engineer id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
 	@GetMapping("/engineer/{id}")
+
 	public ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
+
 		List<Ticket> tickets = ticketService.findTicketsByEngineerId(id);
+		return new ResponseEntity<>(tickets, HttpStatus.OK);
+	}
+
+	@Operation(summary = "Find tickets by client id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
+	@GetMapping("/client/{id}")
+	public ResponseEntity<?> findTicketsByClientId(@PathVariable Long id) {
+		List<Ticket> tickets = ticketService.findTicketsByClientId(id);
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
 
