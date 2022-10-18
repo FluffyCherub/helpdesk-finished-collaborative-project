@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.feignclient.request.TicketRequestService;
 
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/gateway/tickets")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TicketRequestController {
 
     Logger logger = LoggerFactory.getLogger(TicketRequestController.class);
+
+    @NonNull
     private TicketRequestService ticketRequestService;
 
     @PostMapping

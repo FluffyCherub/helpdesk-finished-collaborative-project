@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.feignclient.request.UserRequestService;
 
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/gateway/users")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserRequestController {
 
 	Logger logger = LoggerFactory.getLogger(UserRequestController.class);
+
+	@NonNull
 	private UserRequestService userRequestService;
 
 	@PostMapping("/admin")

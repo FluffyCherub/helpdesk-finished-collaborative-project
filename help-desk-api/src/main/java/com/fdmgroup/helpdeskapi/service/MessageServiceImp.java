@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 import com.fdmgroup.helpdeskapi.model.Message;
 import com.fdmgroup.helpdeskapi.repository.MessageRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MessageServiceImp implements MessageService {
 
     Logger logger = LoggerFactory.getLogger(MessageServiceImp.class);
+
+    @NonNull
     MessageRepository messageRepository;
 
     @Override

@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 import com.fdmgroup.helpdeskapi.model.Ticket;
 import com.fdmgroup.helpdeskapi.repository.TicketRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TicketServiceImp implements TicketService {
 
 	Logger logger = LoggerFactory.getLogger(TicketServiceImp.class);
+
+	@NonNull
 	TicketRepository ticketRepository;
 
 	@Override
