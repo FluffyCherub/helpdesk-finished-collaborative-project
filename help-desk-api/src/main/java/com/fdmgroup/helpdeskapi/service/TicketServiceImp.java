@@ -35,4 +35,9 @@ public class TicketServiceImp implements TicketService {
         ticketRepository.deleteById(id);
     }
 
+    @Override
+    public List<Ticket> findTicketsByEngineerId(long id) {
+        return ticketRepository.findTicketsByEngineerId(id);
+    }
+
 }

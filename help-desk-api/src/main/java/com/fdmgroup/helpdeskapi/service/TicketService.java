@@ -14,4 +14,6 @@ public interface TicketService {
 
     void deleteTicketById(long id);
 
+    List<Ticket> findTicketsByEngineerId(long id);
+
 }
