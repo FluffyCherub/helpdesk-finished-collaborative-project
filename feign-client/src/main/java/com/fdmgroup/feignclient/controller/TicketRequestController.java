@@ -73,6 +73,11 @@ public class TicketRequestController {
         return new ResponseEntity<>(ticketRequestService.reopenTicketById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/engineer/{engineerId}/addto/{ticketId}")
+    public ResponseEntity<?> assignTicketEngineerById(@PathVariable Long engineerId, @PathVariable Long ticketId) {
+        return new ResponseEntity<>(ticketRequestService.assignTicketEngineerById(engineerId, ticketId), HttpStatus.OK);
+    }
+
     @PutMapping("/addMessage/{ticketId}")
     public ResponseEntity<?> addMessageToTicketByTicketId(@PathVariable long ticketId, @RequestBody Object message) {
         return new ResponseEntity<>(ticketRequestService.addMessageToTicketByTicketId(ticketId, message),

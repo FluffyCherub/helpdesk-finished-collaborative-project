@@ -97,6 +97,20 @@ public class TicketController {
 		}
 	}
 
+	@Operation(summary = "Assign a ticket to an engineer")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket assigned"),
+			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
+	@GetMapping("/engineer/{engineerId}/addto/{ticketId}")
+	public ResponseEntity<?> assignTicketEngineerById(@PathVariable Long engineerId, @PathVariable Long ticketId) {
+		Ticket ticketToAssign = ticketService.findTicketById(ticketId);
+		if (ticketToAssign != null) {
+			ticketToAssign.setEngineerId(engineerId);
+			return new ResponseEntity<>(ticketService.saveTicket(ticketToAssign), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	@Operation(summary = "Find a ticket by id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket found"),
 			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
