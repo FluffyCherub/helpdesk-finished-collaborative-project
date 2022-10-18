@@ -36,7 +36,7 @@ public class TicketServiceImp implements TicketService {
 	}
 
 	@Override
-	public List<Ticket> findTicketsByEngineerId(long id) {
+	public List<Ticket> findTicketsByEngineerId(Long id) {
 		return ticketRepository.findTicketsByEngineerId(id);
 	}
 
