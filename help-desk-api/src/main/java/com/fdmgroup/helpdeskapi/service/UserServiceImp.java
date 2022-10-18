@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class UserServiceImp implements UserService {
+
 	UserRepository userRepository;
 
 	@Override

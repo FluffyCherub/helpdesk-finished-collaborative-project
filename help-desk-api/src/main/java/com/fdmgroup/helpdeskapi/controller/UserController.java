@@ -21,15 +21,14 @@ import com.fdmgroup.helpdeskapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@AllArgsConstructor
 public class UserController {
-	private UserService userService;
 
-	public UserController(UserService userService) {
-		this.userService = userService;
-	}
+	private UserService userService;
 
 	@Operation(summary = "Save an admin")
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "User created"), })
