@@ -58,4 +58,14 @@ public class TicketRequestController {
         return new ResponseEntity<>(ticketRequestService.findTicketsByClientId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/resolve/{id}")
+    public ResponseEntity<?> resolveTicketById(@PathVariable Long id) {
+        return new ResponseEntity<>(ticketRequestService.resolveTicketById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/reopen/{id}")
+    public ResponseEntity<?> reopenTicketById(@PathVariable Long id) {
+        return new ResponseEntity<>(ticketRequestService.reopenTicketById(id), HttpStatus.OK);
+    }
+
 }
