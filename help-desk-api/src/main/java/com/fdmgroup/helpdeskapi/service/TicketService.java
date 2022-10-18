@@ -18,4 +18,6 @@ public interface TicketService {
 
 	List<Ticket> findTicketsByEngineerId(Long id);
 
+	List<Ticket> findAllUnassignedTickets();
+
 }
