@@ -23,6 +23,7 @@ import com.fdmgroup.helpdeskapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,6 +32,8 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
+
+	@NonNull
 	private UserService userService;
 
 	@Operation(summary = "Save an admin")
