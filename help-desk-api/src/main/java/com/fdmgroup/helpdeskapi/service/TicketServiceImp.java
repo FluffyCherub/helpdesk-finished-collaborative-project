@@ -41,7 +41,7 @@ public class TicketServiceImp implements TicketService {
 	}
 
 	@Override
-	public List<Ticket> findTicketsByClientId(long id) {
+	public List<Ticket> findTicketsByClientId(Long id) {
 		// TODO Auto-generated method stub
 		return ticketRepository.findTicketsByClientId(id);
 	}
