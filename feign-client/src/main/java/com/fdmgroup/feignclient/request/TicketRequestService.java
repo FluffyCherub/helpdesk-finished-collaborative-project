@@ -33,4 +33,10 @@ public interface TicketRequestService {
 
     @GetMapping("/client/{id}")
     Object findTicketsByClientId(@PathVariable Long id);
+
+    @GetMapping("/resolve/{id}")
+    Object resolveTicketById(@PathVariable Long id);
+
+    @GetMapping("/reopen/{id}")
+    Object reopenTicketById(@PathVariable Long id);
 }
