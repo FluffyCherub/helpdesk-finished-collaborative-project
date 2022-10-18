@@ -21,6 +21,7 @@ import com.fdmgroup.helpdeskapi.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -30,6 +31,7 @@ public class MessageController {
 
     private Logger logger = LoggerFactory.getLogger(MessageController.class);
 
+    @NonNull
     private MessageService messageService;
 
     @Operation(summary = "Save a message")

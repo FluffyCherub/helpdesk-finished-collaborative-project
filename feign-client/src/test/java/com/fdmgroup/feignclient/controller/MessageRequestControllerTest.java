@@ -68,11 +68,21 @@ public class MessageRequestControllerTest {
 
     @Test
     void testSaveMessage() {
-
+        // given
+        Object message = new Object();
+        // when
+        messageRequestController.saveMessage(message);
+        // then
+        verify(messageRequestService, times(1)).saveMessage(message);
     }
 
     @Test
     void testUpdateMessage() {
-
+        // given
+        Object message = new Object();
+        // when
+        messageRequestController.updateMessage(message);
+        // then
+        verify(messageRequestService, times(1)).updateMessage(message);
     }
 }
