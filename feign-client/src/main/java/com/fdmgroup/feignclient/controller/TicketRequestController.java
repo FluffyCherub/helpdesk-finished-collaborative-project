@@ -47,4 +47,10 @@ public class TicketRequestController {
         ticketRequestService.deleteTicketById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     };
+
+    @GetMapping("/engineer/{id}")
+    ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
+        return new ResponseEntity<>(ticketRequestService.findTicketsByEngineerId(id), HttpStatus.OK);
+    }
+
 }
