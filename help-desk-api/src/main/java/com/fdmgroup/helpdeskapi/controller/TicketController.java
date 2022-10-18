@@ -24,72 +24,80 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RequestMapping("/api/v1/tickets")
 public class TicketController {
 
-    private TicketService ticketService;
+	private TicketService ticketService;
 
-    public TicketController(TicketService ticketService) {
-        this.ticketService = ticketService;
-    }
+	public TicketController(TicketService ticketService) {
+		this.ticketService = ticketService;
+	}
 
-    @Operation(summary = "Save a ticket")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Ticket created"),
-    })
-    @PostMapping
-    public ResponseEntity<?> saveTicket(@RequestBody Ticket ticket) {
-        return new ResponseEntity<>(ticketService.saveTicket(ticket), HttpStatus.CREATED);
-    }
+	@Operation(summary = "Save a ticket")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Ticket created"), })
+	@PostMapping
+	public ResponseEntity<?> saveTicket(@RequestBody Ticket ticket) {
+		return new ResponseEntity<>(ticketService.saveTicket(ticket), HttpStatus.CREATED);
+	}
 
-    @Operation(summary = "Find all tickets")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tickets found"),
-    })
-    @GetMapping
-    public ResponseEntity<?> findAllTickets() {
-        List<Ticket> tickets = ticketService.findAllTickets();
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
-    }
+	@Operation(summary = "Find all tickets")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
+	@GetMapping
+	public ResponseEntity<?> findAllTickets() {
+		List<Ticket> tickets = ticketService.findAllTickets();
+		return new ResponseEntity<>(tickets, HttpStatus.OK);
+	}
 
-    @Operation(summary = "Find an ticket by id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Ticket found"),
-            @ApiResponse(responseCode = "404", description = "Ticket not found"),
-    })
-    @PutMapping
-    public ResponseEntity<?> updateTicket(@RequestBody Ticket ticket) {
-        if (ticketService.findTicketById(ticket.getId()) != null) {
-            return new ResponseEntity<>(ticketService.saveTicket(ticket), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
-        }
-    }
+	@Operation(summary = "Update a ticket")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket found"),
+			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
+	@PutMapping
+	public ResponseEntity<?> updateTicket(@RequestBody Ticket ticket) {
+		if (ticketService.findTicketById(ticket.getId()) != null) {
+			return new ResponseEntity<>(ticketService.saveTicket(ticket), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @Operation(summary = "Find a ticket by id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Ticket found"),
-            @ApiResponse(responseCode = "404", description = "Ticket not found"),
-    })
-    @GetMapping("/{id}")
-    public ResponseEntity<?> findTicketById(@PathVariable long id) {
-        if (ticketService.findTicketById(id) != null) {
-            return new ResponseEntity<>(ticketService.findTicketById(id), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
-        }
-    }
+	@Operation(summary = "Find a ticket by id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket found"),
+			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findTicketById(@PathVariable long id) {
+		if (ticketService.findTicketById(id) != null) {
+			return new ResponseEntity<>(ticketService.findTicketById(id), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @Operation(summary = "Delete a ticket by id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Ticket deleted"),
-            @ApiResponse(responseCode = "404", description = "Ticket not found"),
-    })
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTicketById(@PathVariable long id) {
-        if (ticketService.findTicketById(id) != null) {
-            ticketService.deleteTicketById(id);
-            return new ResponseEntity<>("Ticket deleted", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
-        }
-    }
+	@Operation(summary = "Find tickets by engineer id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
+	@GetMapping("/engineer/{id}")
+
+	public ResponseEntity<?> findTicketsByEngineerId(@PathVariable Long id) {
+
+		List<Ticket> tickets = ticketService.findTicketsByEngineerId(id);
+		return new ResponseEntity<>(tickets, HttpStatus.OK);
+	}
+
+	@Operation(summary = "Find tickets by client id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Tickets found"), })
+	@GetMapping("/client/{id}")
+	public ResponseEntity<?> findTicketsByClientId(@PathVariable Long id) {
+		List<Ticket> tickets = ticketService.findTicketsByClientId(id);
+		return new ResponseEntity<>(tickets, HttpStatus.OK);
+	}
+
+	@Operation(summary = "Delete a ticket by id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Ticket deleted"),
+			@ApiResponse(responseCode = "404", description = "Ticket not found"), })
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteTicketById(@PathVariable long id) {
+		if (ticketService.findTicketById(id) != null) {
+			ticketService.deleteTicketById(id);
+			return new ResponseEntity<>("Ticket deleted", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Ticket not found", HttpStatus.NOT_FOUND);
+		}
+	}
 
 }

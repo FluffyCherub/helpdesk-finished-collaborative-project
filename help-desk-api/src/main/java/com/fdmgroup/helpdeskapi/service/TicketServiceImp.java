@@ -13,26 +13,37 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TicketServiceImp implements TicketService {
 
-    TicketRepository ticketRepository;
+	TicketRepository ticketRepository;
 
-    @Override
-    public Ticket saveTicket(Ticket ticket) {
-        return ticketRepository.save(ticket);
-    }
+	@Override
+	public Ticket saveTicket(Ticket ticket) {
+		return ticketRepository.save(ticket);
+	}
 
-    @Override
-    public List<Ticket> findAllTickets() {
-        return ticketRepository.findAll();
-    }
+	@Override
+	public List<Ticket> findAllTickets() {
+		return ticketRepository.findAll();
+	}
 
-    @Override
-    public Ticket findTicketById(long id) {
-        return ticketRepository.findById(id).orElse(null);
-    }
+	@Override
+	public Ticket findTicketById(long id) {
+		return ticketRepository.findById(id).orElse(null);
+	}
 
-    @Override
-    public void deleteTicketById(long id) {
-        ticketRepository.deleteById(id);
-    }
+	@Override
+	public void deleteTicketById(long id) {
+		ticketRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Ticket> findTicketsByEngineerId(Long id) {
+		return ticketRepository.findTicketsByEngineerId(id);
+	}
+
+	@Override
+	public List<Ticket> findTicketsByClientId(Long id) {
+		// TODO Auto-generated method stub
+		return ticketRepository.findTicketsByClientId(id);
+	}
 
 }

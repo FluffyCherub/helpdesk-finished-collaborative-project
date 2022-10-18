@@ -10,27 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "ticket-service", path = "/api/v1/tickets", url = "${helpdeskapi.server.url}")
-public interface TicketRequestService {
+@FeignClient(value = "message-service", path = "/api/v1/messages", url = "${helpdeskapi.server.url}")
+public interface MessageRequestService {
 
     @PostMapping
-    Object saveTicket(@RequestBody Object ticket);
+    Object saveMessage(@RequestBody Object message);
 
     @GetMapping
-    List<Object> findAllTickets();
+    List<Object> findAllMessages();
 
     @PutMapping
-    Object updateTicket(Object ticket);
+    Object updateMessage(Object message);
 
     @GetMapping("/{id}")
-    Object findTicketById(@PathVariable long id);
+    Object findMessageById(@PathVariable long id);
 
     @DeleteMapping("/{id}")
-    void deleteTicketById(@PathVariable long id);
-
-    @GetMapping("/engineer/{id}")
-    Object findTicketsByEngineerId(@PathVariable Long id);
-
-    @GetMapping("/client/{id}")
-    Object findTicketsByClientId(@PathVariable Long id);
+    void deleteMessageById(@PathVariable long id);
 }
