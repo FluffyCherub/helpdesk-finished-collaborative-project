@@ -5,6 +5,8 @@ import React, {Component} from 'react';
 import Header from './components/Header'
 import Tickets from './components/Tickets';
 import Form from './components/Form';
+import AddTicket from './components/AddTicket';
+import FormInput from './components/molecules/FormInput';
 class App extends Component{
   render() {
   return (
@@ -12,7 +14,7 @@ class App extends Component{
     <div className="projectNavBar">
         <Header/>
         <Tickets/>
-        <Form/>
+        <AddTicket/>
         </div>
     </div>
   );
