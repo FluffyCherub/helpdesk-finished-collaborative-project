@@ -35,6 +35,9 @@ public class Ticket {
 	@Column(name = "date_created", nullable = false)
 	private LocalDateTime dateCreated;
 
+	@Column(name = "resolved", nullable = false)
+	private boolean resolved;
+
 	@PrePersist
 	private void prePersist() {
 		dateCreated = LocalDateTime.now();
@@ -46,6 +49,14 @@ public class Ticket {
 
 	public LocalDateTime getDateCreated() {
 		return dateCreated;
+	}
+
+	public boolean getResolved() {
+		return resolved;
+	}
+
+	public void setResolved(boolean resolved) {
+		this.resolved = resolved;
 	}
 
 	public String getTitle() {
