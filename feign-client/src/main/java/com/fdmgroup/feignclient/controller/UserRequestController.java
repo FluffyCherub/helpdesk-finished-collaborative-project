@@ -51,6 +51,12 @@ public class UserRequestController {
 		return new ResponseEntity<>(userRequestService.findAllUsers(), HttpStatus.OK);
 	}
 
+	@GetMapping("/engineers")
+	ResponseEntity<?> findAllEngineers() {
+		logger.info("Feign Client: Finding all egineers");
+		return new ResponseEntity<>(userRequestService.findAllEngineers(), HttpStatus.OK);
+	}
+
 	@GetMapping("/{id}")
 	ResponseEntity<?> findUserById(@PathVariable long id) {
 		logger.info("Feign Client: Finding user by id: {}", id);
