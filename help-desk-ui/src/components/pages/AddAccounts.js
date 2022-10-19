@@ -16,6 +16,7 @@ class AddAccount extends Component {
   };
 
   onHandleChange = (e) => {
+    console.log([e.target.name]);
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -24,10 +25,6 @@ class AddAccount extends Component {
     console.log("entered onHandleSubmit");
     const { userType, username, email, fullName, password, specialism } =
       this.state;
-    if (userType === "") {
-      this.setState({ errors: { userType: "Usertype is required" } });
-      return;
-    }
     if (username === "") {
       this.setState({ errors: { username: "Username is required" } });
       return;
@@ -45,23 +42,34 @@ class AddAccount extends Component {
       this.setState({ errors: { password: "Password is required" } });
       return;
     }
-    if (specialism === "") {
+    if (userType === "none") {
       this.setState({ errors: { specialism: "Specialism is required" } });
       return;
     }
+    console.log("passed validation");
 
-    const { messages } = [];
-    const resolved = false;
-    const newAccount = {
-      userType,
-      username,
-      email,
-      fullName,
-      password,
-      specialism,
-      resolved: false,
-    };
-    if (userType === "admin") {
+    var newAccount = {};
+    if (userType === "Engineer") {
+      newAccount = {
+        username,
+        email,
+        fullName,
+        password,
+        userType,
+        specialism: "software",
+      };
+      console.log("new engineer Account", newAccount);
+    } else {
+      newAccount = {
+        userType,
+        username,
+        email,
+        fullName,
+        password,
+      };
+      console.log("new other Account", newAccount);
+    }
+    if (userType === "Admin") {
       axios
         .post("http://localhost:8081/gateway/users/admin", newAccount)
         .then((res) => {
@@ -76,7 +84,7 @@ class AddAccount extends Component {
             specialism: "",
           });
         });
-    } else if (userType === "client") {
+    } else if (userType === "Client") {
       axios
         .post("http://localhost:8081/gateway/users/client", newAccount)
         .then((res) => {
@@ -91,7 +99,7 @@ class AddAccount extends Component {
             specialism: "",
           });
         });
-    } else if (userType === "engineer") {
+    } else if (userType === "Engineer") {
       axios
         .post("http://localhost:8081/gateway/users/engineer", newAccount)
         .then((res) => {
@@ -196,12 +204,13 @@ class AddAccount extends Component {
                 <div className="form-group">
                   <label htmlFor="multipleSelectInputMolecule">type</label>
                   <select
-                    value={this.state.userType}
+                    name="userType"
+                    value={userType}
                     onChange={this.onHandleChange}
                   >
-                    <option value="Orange">Admin</option>
-                    <option value="Radish">Client</option>
-                    <option value="Cherry">Engineer</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Client">Client</option>
+                    <option value="Engineer">Engineer</option>
                   </select>
                 </div>
 
