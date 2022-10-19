@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Ticket from "./Ticket";
 import axios from "axios";
-import TextAreaAtom from "./atoms/TextAreaAtom";
 
 class Tickets extends Component {
   state = {

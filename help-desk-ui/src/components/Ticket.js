@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import TextAreaAtom from "./atoms/TextAreaAtom";
-import IconAtom from "./atoms/IconAtom";
-import LabelAtom from "./atoms/LabelAtom";
 import TicketHeaderMolecule from "./molecules/TicketHeaderMolecule";
 import TicketBodyMolecule from "./molecules/TicketBodyMolecule";
 
@@ -16,17 +13,12 @@ class Ticket extends Component {
   };
 
   onHandleDelete = () => {
-    this.props.handleDeleteTicket();
-  };
-  state = {
-    title: "",
-    id: "",
-    errors: {},
+    this.props.handleDeleteMessage();
   };
 
   render() {
     const { showInfo } = this.state; // destructuring
-    const { id, title } = this.props.ticket;
+    const { id, title, messages } = this.props.ticket;
 
     return (
       <div className="card mb-1">
@@ -36,8 +28,14 @@ class Ticket extends Component {
           onClickDelete={this.onHandleDelete}
           onClickChevron={this.onHandleClick}
         />
-        {showInfo ? <TicketBodyMolecule id={id} title={title} /> : null}
-        <TextAreaAtom />
+        {showInfo ? (
+          <TicketBodyMolecule
+            id={id}
+            title={title}
+            ticket={this.props.ticket}
+            messages={messages}
+          />
+        ) : null}
       </div>
     );
   }
