@@ -1,18 +1,28 @@
-import React from 'react'
-import RegisterAtom from '../atoms/RegisterAtom'
-import HomeAtom from '../atoms/HomeAtom'
-import AboutAtom from '../atoms/AboutAtom'
+import React from "react";
+import NavLinkMolecule from "./NavLinkMolecule";
 
-function IconsMolecule (props)  {
-   const {icon} = props;
-return(
-    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-    <HomeAtom/>
-    <RegisterAtom/>
-    <AboutAtom/>
-    {icon}
-    </ul>
-   
-)
+function IconsMolecule(props) {
+  return (
+    <React.Fragment>
+      <NavLinkMolecule
+        icon="fa fa-wrench fa-fw"
+        text="Engineer"
+        className="nav-item"
+        href="/engineer"
+      />
+      <NavLinkMolecule
+        icon="fa fa-user-plus fa-fw"
+        className="nav-item"
+        text="Admin"
+        href="/admin"
+      />
+      <NavLinkMolecule
+        icon="fa fa fa-user fa-fw"
+        className="nav-item"
+        text="Client"
+        href="/client"
+      />
+    </React.Fragment>
+  );
 }
-export default IconsMolecule
+export default IconsMolecule;

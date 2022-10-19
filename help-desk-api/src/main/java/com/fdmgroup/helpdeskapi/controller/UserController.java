@@ -69,6 +69,15 @@ public class UserController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
+	@Operation(summary = "Find all engineers")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Engineers found"), })
+	@GetMapping("/engineers")
+	public ResponseEntity<?> findAllEngineers() {
+		logger.info("Finding all engineers");
+		List<User> users = userService.findAllEngineers();
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
+
 	@Operation(summary = "Find a user by id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User found"),
 			@ApiResponse(responseCode = "404", description = "User not found"), })

@@ -23,12 +23,13 @@ class AddCommentMolecule extends Component {
       body,
       user: {
         // hard coded user
-        id: 3,
-        userType: "Admin",
-        username: "testUser13",
-        email: "test@gmail.com",
-        fullName: "James",
+        userType: "Engineer",
+        id: 1,
+        username: "testEngineer13",
+        email: "testengi@gmail.com",
+        fullName: "Jane Doe",
         password: "password1",
+        specialism: "software",
       },
     };
     axios

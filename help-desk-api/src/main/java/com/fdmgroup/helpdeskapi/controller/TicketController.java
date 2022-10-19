@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.helpdeskapi.model.Message;
 import com.fdmgroup.helpdeskapi.model.Ticket;
+import com.fdmgroup.helpdeskapi.model.User;
 import com.fdmgroup.helpdeskapi.service.MessageService;
 import com.fdmgroup.helpdeskapi.service.TicketService;
+import com.fdmgroup.helpdeskapi.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -35,6 +37,9 @@ public class TicketController {
 
 	@NonNull
 	private TicketService ticketService;
+
+	@NonNull
+	private UserService userService;
 
 	@NonNull
 	private MessageService messageService;
@@ -182,7 +187,12 @@ public class TicketController {
 		if (ticketService.findTicketById(ticketId) != null) {
 			logger.info("Adding message to ticket: {}", ticketId);
 			Ticket ticket = ticketService.findTicketById(ticketId);
-			ticket.addMessage(message);
+			Message retrievedMessage = new Message();
+			retrievedMessage.setBody(message.getBody());
+			retrievedMessage.setDateCreated(message.getDateCreated());
+			User user = userService.findUserById(message.getUser().getId());
+			retrievedMessage.setUser(user);
+			ticket.addMessage(retrievedMessage);
 			ticketService.saveTicket(ticket);
 			return new ResponseEntity<>(ticket, HttpStatus.OK);
 		} else {
