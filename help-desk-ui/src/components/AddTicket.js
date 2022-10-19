@@ -31,9 +31,15 @@ class AddTicket extends Component {
       this.setState({ errors: { engineerId: "Engineer is required" } });
       return;
     }
-    const {messages} = []
-    const resolved = false
-    const newTicket = { clientId, messages: [], title, engineerId, resolved:false};
+    const { messages } = [];
+    const resolved = false;
+    const newTicket = {
+      clientId,
+      messages: [],
+      title,
+      engineerId,
+      resolved: false,
+    };
     console.log("title: " + title);
     console.log("engineerId: " + engineerId);
     console.log("messages: " + messages);
@@ -46,7 +52,7 @@ class AddTicket extends Component {
   };
 
   render() {
-    const { clientId, engineerId, title, errors,  } = this.state;
+    const { clientId, engineerId, title, errors } = this.state;
     return (
       <div>
         <div className="card">
@@ -72,7 +78,7 @@ class AddTicket extends Component {
                   placeholder="Please type the Message"
                   errors={errors.title}
                 />
-                  <FormInput
+                <FormInput
                   label="Engineerid"
                   type="number"
                   name="engineerId"
@@ -81,8 +87,6 @@ class AddTicket extends Component {
                   placeholder="Please type the EngineerID"
                   errors={errors.engineerId}
                 />
-                
-
 
                 <FormSubmitAtom label="Add Ticket" />
               </form>
