@@ -8,20 +8,26 @@ import PageNotFound from "./components/pages/PageNotFound";
 import Tickets from "./components/Tickets";
 import AddTicket from "./components/AddTicket";
 import Engineer from "./components/pages/Engineer";
+import AddAccount from "./components/pages/AddAccount";
+import Client from "./components/pages/Client";
 function App() {
   return (
     <Router>
-    <div className="container">
+      <div className="container">
         <Header />
         <Routes>
-         <Route index element ={<Tickets/>}/>
-         <Route path = "/register" element={<AddTicket/>} />
-         <Route path="/admin" element={<Admin />} />
-         <Route path="/engineer" element={<Engineer />} />
-         <Route path="*" element={<PageNotFound />} />
+          <Route index element={<Tickets />} />
+
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/engineer" element={<Engineer />} />
+          <Route path="/client" element={<Client />} />
+          <Route path="/admin/newAccount" element={<AddAccount />} />
+          <Route path="/client/NewTicket" element={<AddTicket />} />
+
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
-      </Router>
+    </Router>
   );
 }
 
