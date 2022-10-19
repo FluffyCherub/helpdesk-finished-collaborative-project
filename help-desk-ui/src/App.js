@@ -21,6 +21,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/engineer" element={<Engineer />} />
           <Route path="/client" element={<Client />} />
+          <Route path="/admin/accounts" element={<Admin />} />
           <Route path="/admin/newAccount" element={<AddAccount />} />
           <Route path="/client/NewTicket" element={<AddTicket />} />
 
