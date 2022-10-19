@@ -23,6 +23,7 @@ class AddCommentMolecule extends Component {
       body,
       user: {
         // hard coded user
+        id: 3,
         userType: "Admin",
         username: "testUser13",
         email: "test@gmail.com",
