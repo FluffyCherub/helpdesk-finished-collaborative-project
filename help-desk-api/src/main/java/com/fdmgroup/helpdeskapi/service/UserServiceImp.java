@@ -44,4 +44,10 @@ public class UserServiceImp implements UserService {
 		logger.info("UserServiceImp - Deleting user by id: {}", id);
 		userRepository.deleteById(id);
 	}
+
+	@Override
+	public User findUserByUsername(String username) {
+		logger.info("UserServiceImp - Finding user by username: {}", username);
+		return userRepository.findByUsername(username);
+	}
 }
