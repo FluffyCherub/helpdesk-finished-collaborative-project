@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import TicketHeaderMolecule from "../molecules/TicketHeaderMolecule";
-import TicketBodyMolecule from "../molecules/TicketBodyMolecule";
+import AccountBodyMolecule from "../molecules/AccountBodyMolecule";
+import AccountHeaderMolecule from "../molecules/AccountHeaderMolecule";
+
 class Account extends Component {
   state = {
     showInfo: false,
@@ -17,31 +18,23 @@ class Account extends Component {
 
   render() {
     const { showInfo } = this.state; // destructuring
-    const { userType, username, email, fullName, password, specialism,messages } =
+    const {  username, email, fullName, password, specialism,messages } =
       this.props.account;
+      console.log(username);
 
     return (
       <div className="card mb-1">
-        <TicketHeaderMolecule
-          userType={userType}
+        <AccountHeaderMolecule
           username={username}
           email={email}
-          fullName={fullName}
-          password={password}
-          specialism={specialism}
           onClickDelete={this.onHandleDelete}
           onClickChevron={this.onHandleClick}
         />
         {showInfo ? (
-          <TicketBodyMolecule
-            userType={userType}
+          <AccountBodyMolecule
+            // userType={userType}
             username={username}
             email={email}
-            fullName={fullName}
-            password={password}
-            specialism={specialism}
-            account={this.props.account}
-            messages={messages}
           />
         ) : null}
       </div>

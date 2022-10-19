@@ -19,11 +19,11 @@ class Accounts extends Component {
     const { accounts } = this.state;
     return (
       <React.Fragment>
-        {accounts.map((accounts) => (
+        {accounts.map((account) => (
           <Account
-            key={accounts.id}
-            accounts={accounts}
-            handleDeleteAccount={this.deleteAccount.bind(this, accounts.id)}
+            key={account.id}
+            account={account}
+            handleDeleteAccount={this.deleteAccount.bind(this, account.id)}
           />
         ))}
       </React.Fragment>

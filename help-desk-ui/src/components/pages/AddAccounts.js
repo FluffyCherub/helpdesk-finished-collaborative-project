@@ -2,6 +2,7 @@ import axios from "axios";
 import FormInput from "../molecules/FormInput";
 import React, { Component } from "react";
 import FormSubmitAtom from "../atoms/FormSubmitAtom";
+import MultipleSelectInputMolecule from "../molecules/MultipleSelectInputMolecule";
 class AddAccount extends Component {
   state = {
     userType: "",
@@ -60,20 +61,63 @@ class AddAccount extends Component {
       specialism,
       resolved: false,
     };
-    axios
-      .post("http://localhost:8081/gateway/users", newAccount)
-      .then((res) => {
-        this.setState({
-          messages: "",
-          clientId: "",
-          userType: "",
-          username: "",
-          email: "",
-          fullName: "",
-          password: "",
-          specialism: "",
+    if (userType === "admin") {
+      axios
+        .post("http://localhost:8081/gateway/users/admin", newAccount)
+        .then((res) => {
+          this.setState({
+            messages: "",
+            clientId: "",
+            userType: "",
+            username: "",
+            email: "",
+            fullName: "",
+            password: "",
+            specialism: "",
+          });
         });
+    } else if (userType === "client") {
+      axios
+        .post("http://localhost:8081/gateway/users/client", newAccount)
+        .then((res) => {
+          this.setState({
+            messages: "",
+            clientId: "",
+            userType: "",
+            username: "",
+            email: "",
+            fullName: "",
+            password: "",
+            specialism: "",
+          });
+        });
+    } else if (userType === "engineer") {
+      axios
+        .post("http://localhost:8081/gateway/users/engineer", newAccount)
+        .then((res) => {
+          this.setState({
+            messages: "",
+            clientId: "",
+            userType: "",
+            username: "",
+            email: "",
+            fullName: "",
+            password: "",
+            specialism: "",
+          });
+        });
+    } else {
+      this.setState({
+        messages: "",
+        clientId: "",
+        userType: "",
+        username: "",
+        email: "",
+        fullName: "",
+        password: "",
+        specialism: "",
       });
+    }
   };
 
   render() {
@@ -94,9 +138,9 @@ class AddAccount extends Component {
             <div className="card-body">
               <form onSubmit={this.onHandleSubmit}>
                 <FormInput
-                  label="Fullname"
-                  type="text"
-                  name="Fullname"
+                  label="Name"
+                  type="fullName"
+                  name="fullName"
                   value={fullName}
                   onChange={this.onHandleChange}
                   placeholder="Please type fullname"
@@ -122,24 +166,24 @@ class AddAccount extends Component {
                 />
                 <FormInput
                   label="Create Password"
-                  type="text"
-                  name="Password"
+                  type="password"
+                  name="password"
                   value={password}
                   onChange={this.onHandleChange}
                   placeholder="Please type a strong password"
                   errors={errors.password}
                 />
-                <FormInput
+                {/* <FormInput
                   label="Usertype"
                   type="text"
                   name="UserType"
-                  value={userType}
+                  value={type}
                   onChange={this.onHandleChange}
                   placeholder=""
-                  errors={errors.userType}
-                />
+                  errors={errors.type}
+                /> */}
 
-                <FormInput
+                {/* <FormInput
                   label="speacialism"
                   type="text"
                   name="specialism"
@@ -147,7 +191,19 @@ class AddAccount extends Component {
                   onChange={this.onHandleChange}
                   placeholder=""
                   errors={errors.specialism}
-                />
+              /> */}
+
+                <div className="form-group">
+                  <label htmlFor="multipleSelectInputMolecule">type</label>
+                  <select
+                    value={this.state.userType}
+                    onChange={this.onHandleChange}
+                  >
+                    <option value="Orange">Admin</option>
+                    <option value="Radish">Client</option>
+                    <option value="Cherry">Engineer</option>
+                  </select>
+                </div>
 
                 <FormSubmitAtom label="Add Account" />
               </form>
