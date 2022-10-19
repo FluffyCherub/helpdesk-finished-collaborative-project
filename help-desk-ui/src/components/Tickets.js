@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Ticket from './Ticket';
+import Ticket from "./Ticket";
 import axios from "axios";
+import TextAreaAtom from "./atoms/TextAreaAtom";
 
 class Tickets extends Component {
   state = {
@@ -11,13 +12,11 @@ class Tickets extends Component {
     axios
       .get("http://localhost:8081/gateway/tickets")
       .then((response) => this.setState({ tickets: response.data }));
-  };
-
+  }
 
   deleteTicket = (id) => {
     axios.delete("http://localhost:8081/gateway/tickets/" + id);
   };
-
 
   render() {
     const { tickets } = this.state;
