@@ -21,11 +21,9 @@ import lombok.Setter;
 @Table(name = "Users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "userType")
-@JsonSubTypes({
-		@JsonSubTypes.Type(value = Engineer.class, name = "Engineer"),
+@JsonSubTypes({ @JsonSubTypes.Type(value = Engineer.class, name = "Engineer"),
 		@JsonSubTypes.Type(value = Client.class, name = "Client"),
-		@JsonSubTypes.Type(value = Admin.class, name = "Admin")
-})
+		@JsonSubTypes.Type(value = Admin.class, name = "Admin") })
 public abstract class User {
 	@Id // Make this field the primary id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,7 +31,7 @@ public abstract class User {
 	@Column(name = "user_id", nullable = false)
 	private long id;
 
-	@Column(name = "username", nullable = false)
+	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 
 	@Column(name = "email", nullable = false)

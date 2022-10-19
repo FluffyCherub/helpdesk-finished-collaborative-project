@@ -83,6 +83,26 @@ public class UserController {
 		}
 	}
 
+	@Operation(summary = "Find a user by username")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User found"),
+			@ApiResponse(responseCode = "404", description = "User not found"), })
+	@GetMapping("/authenticate/{username}/{password}")
+	public ResponseEntity<?> findUserByUsername(@PathVariable String username, @PathVariable String password) {
+		User returnedUser = userService.findUserByUsername(username);
+		if (returnedUser != null) {
+			if (returnedUser.getPassword() == password) {
+				logger.info("Finding user with username: {}", username);
+				return new ResponseEntity<>(returnedUser, HttpStatus.OK);
+			} else {
+				logger.warn("Username and password: {} do not match", username, password);
+				return new ResponseEntity<>("Username and password do not match", HttpStatus.NOT_FOUND);
+			}
+		} else {
+			logger.warn("User with username: {} not found", username);
+			return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	@Operation(summary = "Delete a user by id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "User deleted"),
 			@ApiResponse(responseCode = "404", description = "User not found"), })

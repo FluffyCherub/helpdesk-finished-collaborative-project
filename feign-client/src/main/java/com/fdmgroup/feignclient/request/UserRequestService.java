@@ -27,6 +27,9 @@ public interface UserRequestService {
 	@GetMapping("/{id}")
 	Object findUserById(@PathVariable long id);
 
+	@GetMapping("/authenticate/{username}/{password}")
+	Object findUserByUsername(@PathVariable String username, @PathVariable String password);
+
 	@DeleteMapping("/{id}")
 	void deleteUserById(@PathVariable long id);
 
