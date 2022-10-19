@@ -11,12 +11,14 @@ import Engineer from "./components/pages/Engineer";
 import Accounts from "./components/pages/Accounts";
 import Client from "./components/pages/Client";
 import AddAccounts from "./components/pages/AddAccounts";
+import Login from "./components/pages/Login";
 function App() {
   return (
     <Router>
       <div className="container">
         <Header />
         <Routes>
+          <Route index element={<Login />} />
           <Route path="/tickets" element={<Tickets />} />
 
           <Route path="/admin" element={<Admin />} />
