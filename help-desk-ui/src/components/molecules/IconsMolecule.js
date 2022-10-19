@@ -5,6 +5,12 @@ function IconsMolecule(props) {
   return (
     <React.Fragment>
       <NavLinkMolecule
+        icon="fa fa-bars fa-fw"
+        text="All Tickets"
+        className="nav-item"
+        href="/tickets"
+      />
+      <NavLinkMolecule
         icon="fa fa-wrench fa-fw"
         text="Engineer"
         className="nav-item"

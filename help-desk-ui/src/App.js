@@ -17,7 +17,7 @@ function App() {
       <div className="container">
         <Header />
         <Routes>
-          <Route index element={<Tickets />} />
+          <Route path="/tickets" element={<Tickets />} />
 
           <Route path="/admin" element={<Admin />} />
           <Route path="/engineer" element={<Engineer />} />
