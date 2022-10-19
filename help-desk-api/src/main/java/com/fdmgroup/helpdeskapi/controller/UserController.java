@@ -99,11 +99,11 @@ public class UserController {
 	public ResponseEntity<?> findUserByUsername(@PathVariable String username, @PathVariable String password) {
 		User returnedUser = userService.findUserByUsername(username);
 		if (returnedUser != null) {
-			if (returnedUser.getPassword() == password) {
+			if (returnedUser.getPassword().equals(password)) {
 				logger.info("Finding user with username: {}", username);
 				return new ResponseEntity<>(returnedUser, HttpStatus.OK);
 			} else {
-				logger.warn("Username and password: {} do not match", username, password);
+				logger.warn("Username and password: {} do not match", username);
 				return new ResponseEntity<>("Username and password do not match", HttpStatus.NOT_FOUND);
 			}
 		} else {
