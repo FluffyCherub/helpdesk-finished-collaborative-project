@@ -18,7 +18,7 @@ class Admin extends Component {
       .get("http://localhost:8081/gateway/tickets/unassigned")
       .then((response) => this.setState({ tickets: response.data }));
     axios
-      .get("http://localhost:8081/gateway/users/")
+      .get("http://localhost:8081/gateway/users/engineers")
       .then((response) => this.setState({ users: response.data }));
   }
 

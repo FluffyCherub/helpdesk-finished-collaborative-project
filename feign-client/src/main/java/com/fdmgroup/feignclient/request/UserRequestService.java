@@ -33,4 +33,7 @@ public interface UserRequestService {
 	@DeleteMapping("/{id}")
 	void deleteUserById(@PathVariable long id);
 
+	@GetMapping("/engineers")
+	List<Object> findAllEngineers();
+
 }
