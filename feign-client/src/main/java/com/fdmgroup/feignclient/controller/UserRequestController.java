@@ -57,6 +57,12 @@ public class UserRequestController {
 		return new ResponseEntity<>(userRequestService.findUserById(id), HttpStatus.OK);
 	}
 
+	@GetMapping("/authenticate/{username}/{password}")
+	ResponseEntity<?> findUserByUsername(@PathVariable String username, @PathVariable String password) {
+		logger.info("Feign Client: Finding user by username: {}", username);
+		return new ResponseEntity<>(userRequestService.findUserByUsername(username, password), HttpStatus.OK);
+	}
+
 	@DeleteMapping("/{id}")
 	ResponseEntity<?> deleteUserById(@PathVariable long id) {
 		logger.info("Feign Client: Deleting user by id: {}", id);
