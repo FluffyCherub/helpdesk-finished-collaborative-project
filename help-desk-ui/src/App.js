@@ -8,8 +8,9 @@ import PageNotFound from "./components/pages/PageNotFound";
 import Tickets from "./components/Tickets";
 import AddTicket from "./components/AddTicket";
 import Engineer from "./components/pages/Engineer";
-import AddAccount from "./components/pages/AddAccount";
+import Accounts from "./components/pages/Accounts";
 import Client from "./components/pages/Client";
+import AddAccounts from "./components/pages/AddAccounts";
 function App() {
   return (
     <Router>
@@ -21,8 +22,8 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/engineer" element={<Engineer />} />
           <Route path="/client" element={<Client />} />
-          <Route path="/admin/accounts" element={<Admin />} />
-          <Route path="/admin/newAccount" element={<AddAccount />} />
+          <Route path="/admin/accounts" element={<Accounts />} />
+          <Route path="/admin/newaccounts" element={<AddAccounts />} />
           <Route path="/client/NewTicket" element={<AddTicket />} />
 
           <Route path="*" element={<PageNotFound />} />
