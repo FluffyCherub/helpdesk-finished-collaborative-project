@@ -4,9 +4,12 @@ import React, { Component } from "react";
 import FormSubmitAtom from "../atoms/FormSubmitAtom";
 class AddAccount extends Component {
   state = {
-    clientId: "",
-    engineerId: "",
-    title: "",
+    userType: "",
+    username: "",
+    email: "",
+    fullName: "",
+    password: "",
+    specialism: "",
     errors: {},
     messages: [],
   };
@@ -18,74 +21,132 @@ class AddAccount extends Component {
   onHandleSubmit = (e) => {
     e.preventDefault();
     console.log("entered onHandleSubmit");
-    const { clientId, engineerId, title } = this.state;
-    if (clientId === "") {
-      this.setState({ errors: { clientId: "Client is required" } });
+    const { userType, username, email, fullName, password, specialism } =
+      this.state;
+    if (userType === "") {
+      this.setState({ errors: { userType: "Usertype is required" } });
       return;
     }
-    if (title === "") {
-      this.setState({ errors: { title: "Title is required" } });
+    if (username === "") {
+      this.setState({ errors: { username: "Username is required" } });
       return;
     }
-    if (engineerId === "") {
-      this.setState({ errors: { engineerId: "Engineer is required" } });
+    if (email === "") {
+      this.setState({ errors: { email: "Email is required" } });
       return;
     }
+    if (fullName === "") {
+      this.setState({ errors: { fullName: "Fullname is required" } });
+      return;
+    }
+
+    if (password === "") {
+      this.setState({ errors: { password: "Password is required" } });
+      return;
+    }
+    if (specialism === "") {
+      this.setState({ errors: { specialism: "Specialism is required" } });
+      return;
+    }
+
     const { messages } = [];
     const resolved = false;
     const newAccount = {
-      clientId,
-      messages: [],
-      title,
-      engineerId,
+      userType,
+      username,
+      email,
+      fullName,
+      password,
+      specialism,
       resolved: false,
     };
-    console.log("title: " + title);
-    console.log("engineerId: " + engineerId);
-    console.log("messages: " + messages);
-    console.log("clientId: " + clientId);
     axios
       .post("http://localhost:8081/gateway/users", newAccount)
       .then((res) => {
-        this.setState({ messages: "", clientId: "" });
+        this.setState({
+          messages: "",
+          clientId: "",
+          userType: "",
+          username: "",
+          email: "",
+          fullName: "",
+          password: "",
+          specialism: "",
+        });
       });
   };
 
   render() {
-    const { clientId, engineerId, title, errors } = this.state;
+    const {
+      userType,
+      username,
+      email,
+      fullName,
+      password,
+      specialism,
+      errors,
+    } = this.state;
     return (
       <div>
         <div className="card">
           <div className="card-header">
-            Helpdesk Query
+            Create Account
             <div className="card-body">
               <form onSubmit={this.onHandleSubmit}>
                 <FormInput
-                  label="Clientid"
-                  type="number"
-                  name="clientId"
-                  value={clientId}
-                  onChange={this.onHandleChange}
-                  placeholder="Please type the ClientID"
-                  errors={errors.clientId}
-                />
-                <FormInput
-                  label="Message"
+                  label="Fullname"
                   type="text"
-                  name="title"
-                  value={title}
+                  name="Fullname"
+                  value={fullName}
                   onChange={this.onHandleChange}
-                  placeholder="Please type the Message"
-                  errors={errors.title}
+                  placeholder="Please type fullname"
+                  errors={errors.fullName}
                 />
                 <FormInput
-                  label="Engineerid"
-                  type="number"
-                  name="engineerId"
-                  value={engineerId}
+                  label="username"
+                  type="username"
+                  name="username"
+                  value={username}
                   onChange={this.onHandleChange}
-                  placeholder="Please type the EngineerID"
-                  errors={errors.engineerId}
+                  placeholder="Please type username"
+                  errors={errors.username}
+                />
+                <FormInput
+                  label="Email"
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={this.onHandleChange}
+                  placeholder="Please type the email"
+                  errors={errors.username}
+                />
+                <FormInput
+                  label="Create Password"
+                  type="text"
+                  name="Password"
+                  value={password}
+                  onChange={this.onHandleChange}
+                  placeholder="Please type a strong password"
+                  errors={errors.password}
+                />
+                <FormInput
+                  label="Usertype"
+                  type="text"
+                  name="UserType"
+                  value={userType}
+                  onChange={this.onHandleChange}
+                  placeholder=""
+                  errors={errors.userType}
+                />
+
+                <FormInput
+                  label="speacialism"
+                  type="text"
+                  name="specialism"
+                  value={specialism}
+                  onChange={this.onHandleChange}
+                  placeholder=""
+                  errors={errors.specialism}
                 />
 
                 <FormSubmitAtom label="Add Account" />
