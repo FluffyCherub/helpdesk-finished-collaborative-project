@@ -26,7 +26,7 @@ import lombok.Setter;
         @JsonSubTypes.Type(value = Admin.class, name = "Admin") })
 public abstract class User {
     @Id // Make this field the primary id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "generate_user")
     @Setter(AccessLevel.NONE)
     @Column(name = "user_id", nullable = false)
     private long id;

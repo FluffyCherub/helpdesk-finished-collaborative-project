@@ -18,9 +18,8 @@ import lombok.Setter;
 @Data
 @Entity
 public class Message {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "generate_message")
     @Setter(AccessLevel.NONE)
     @Column(name = "message_id")
     private long id;
