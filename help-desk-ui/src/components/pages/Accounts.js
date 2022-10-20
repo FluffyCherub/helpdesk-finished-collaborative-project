@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Account from "./Account";
 import axios from "axios";
 import EmptyMolecule from "../molecules/EmptyMolecule";
+import Ticket from "../Ticket";
 class Accounts extends Component {
   state = {
     accounts: [],
@@ -23,11 +24,16 @@ class Accounts extends Component {
         {accounts.length > 0 ? ( // if there are accounts, show them
           <React.Fragment>
             {accounts.map((account) => (
-              <Account
-                key={account.id}
-                account={account}
-                handleDeleteAccount={this.deleteAccount.bind(this, account.id)}
-              />
+              <div key={account.id} className="m-3">
+                <Account
+                  key={account.id}
+                  account={account}
+                  handleDeleteAccount={this.deleteAccount.bind(
+                    this,
+                    account.id
+                  )}
+                />
+              </div>
             ))}
           </React.Fragment>
         ) : (

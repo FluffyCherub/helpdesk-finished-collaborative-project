@@ -156,7 +156,6 @@ class AddAccount extends Component {
       <div>
         <div className="card">
           <div className="card-header">
-            Create Account
             <div className="card-body">
               <form onSubmit={this.onHandleSubmit}>
                 <FormInput
@@ -169,7 +168,7 @@ class AddAccount extends Component {
                   errors={errors.fullName}
                 />
                 <FormInput
-                  label="username"
+                  label="Username"
                   type="username"
                   name="username"
                   value={username}
@@ -196,11 +195,17 @@ class AddAccount extends Component {
                   errors={errors.password}
                 />
 
-                <div className="form-group">
-                  <label htmlFor="multipleSelectInputMolecule">type</label>
+                <div className="form-group m-3">
+                  <label
+                    className="form-label mx-3"
+                    htmlFor="multipleSelectInputMolecule"
+                  >
+                    User Type
+                  </label>
                   <select
                     name="userType"
                     value={userType}
+                    className="form-control"
                     onChange={this.onHandleChange}
                   >
                     <option value="Admin">Admin</option>
@@ -211,7 +216,7 @@ class AddAccount extends Component {
 
                 {userType === "Engineer" ? (
                   <FormInput
-                    label="speacialism"
+                    label="Specialism"
                     type="text"
                     name="specialism"
                     value={specialism}

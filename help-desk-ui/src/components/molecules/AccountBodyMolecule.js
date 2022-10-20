@@ -6,22 +6,26 @@ import AddCommentMolecule from "./AddCommentMolecule";
 import MessageMolecule from "./MessageMolecule";
 
 const AccountBodyMolecule = (props) => {
-  const { username, email, userType} = props;
+  const { account } = props;
   return (
     <div className="card-body">
       <ul className="list-group">
         <li className="list-group-item">
-          <IconAtom icon="fa fa-map-marker" /> &nbsp;
-          <LabelAtom label="username" />
-          <LabelAtom label={username} />
+          <IconAtom icon="fa fa-id-card" /> &nbsp;
+          <LabelAtom label="Full Name: " />
+          <LabelAtom label={account.username} />
         </li>
         <li className="list-group-item">
-          <IconAtom icon="fa fa-map-marker" /> &nbsp;
-          <LabelAtom label="email" />
-          <LabelAtom label={email} />
+          <IconAtom icon="fa fa-user" /> &nbsp;
+          <LabelAtom label="Username: " />
+          <LabelAtom label={account.username} />
+        </li>
+        <li className="list-group-item">
+          <IconAtom icon="fa fa-envelope" /> &nbsp;
+          <LabelAtom label="Email: " />
+          <LabelAtom label={account.email} />
         </li>
       </ul>
-      
     </div>
   );
 };
