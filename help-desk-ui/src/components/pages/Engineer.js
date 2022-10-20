@@ -34,22 +34,35 @@ class Engineer extends Component {
     console.log("the user's full name is " + loggedInUser.fullName);
     return (
       <React.Fragment>
-        <TaskDropDownHeaderMolecule
-          label="View Your Tickets"
-          onClickChevron={this.onHandleClickViewTickets}
-        />
-        {viewTickets ? (
-          <React.Fragment>
-            {tickets.map((ticket) => (
-              <Ticket
-                key={ticket.id}
-                ticket={ticket}
-                handleDeleteTicket={this.deleteTicket.bind(this, ticket.id)}
-                user={loggedInUser}
-              />
-            ))}
-          </React.Fragment>
-        ) : null}
+        <div className="card">
+          <TaskDropDownHeaderMolecule
+            label="View Your Tickets"
+            onClickChevron={this.onHandleClickViewTickets}
+          />
+          {viewTickets ? (
+            <React.Fragment>
+              {tickets.length > 0 ? (
+                <React.Fragment>
+                  {tickets.map((ticket) => (
+                    <div key={ticket.id} className="m-3">
+                      <Ticket
+                        key={ticket.id}
+                        ticket={ticket}
+                        handleDeleteTicket={this.deleteTicket.bind(
+                          this,
+                          ticket.id
+                        )}
+                        user={loggedInUser}
+                      />
+                    </div>
+                  ))}
+                </React.Fragment>
+              ) : (
+                <EmptyMolecule label="Your currently have no tickets assigned" />
+              )}
+            </React.Fragment>
+          ) : null}
+        </div>
       </React.Fragment>
     );
   }

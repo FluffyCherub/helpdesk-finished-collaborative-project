@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import UserInfoMolecule from "../molecules/UserInfoMolecule";
 import Admin from "./Admin";
 import Client from "./Client";
 import Engineer from "./Engineer";
@@ -14,14 +15,14 @@ const Home = (props) => {
         if (loggedInUser.userType === "Admin") {
           return (
             <React.Fragment>
-              <div>You are an Admin.</div>
+              <UserInfoMolecule user={loggedInUser} />
               <Admin user={loggedInUser} />
             </React.Fragment>
           );
         } else if (loggedInUser.userType === "Engineer") {
           return (
             <React.Fragment>
-              <div>You are an Engineer.</div>
+              <UserInfoMolecule user={loggedInUser} />
               <Engineer user={loggedInUser} />
             </React.Fragment>
           );
@@ -29,7 +30,7 @@ const Home = (props) => {
           console.log(loggedInUser);
           return (
             <React.Fragment>
-              <div>You are a Client.</div>
+              <UserInfoMolecule user={loggedInUser} />
               <Client user={loggedInUser} />
             </React.Fragment>
           );
