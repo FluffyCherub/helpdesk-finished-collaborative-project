@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import Account from "./Account"
-import axios from 'axios'
+import React, { Component } from "react";
+import Account from "./Account";
+import axios from "axios";
+import EmptyMolecule from "../molecules/EmptyMolecule";
 class Accounts extends Component {
   state = {
     accounts: [],
@@ -19,16 +20,22 @@ class Accounts extends Component {
     const { accounts } = this.state;
     return (
       <React.Fragment>
-        {accounts.map((account) => (
-          <Account
-            key={account.id}
-            account={account}
-            handleDeleteAccount={this.deleteAccount.bind(this, account.id)}
-          />
-        ))}
+        {accounts.length > 0 ? ( // if there are accounts, show them
+          <React.Fragment>
+            {accounts.map((account) => (
+              <Account
+                key={account.id}
+                account={account}
+                handleDeleteAccount={this.deleteAccount.bind(this, account.id)}
+              />
+            ))}
+          </React.Fragment>
+        ) : (
+          <EmptyMolecule label="No accounts to show" /> // if there are no accounts, show this message
+        )}
       </React.Fragment>
     );
   }
 }
 
-export default Accounts
+export default Accounts;

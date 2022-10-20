@@ -4,6 +4,10 @@ import axios from "axios";
 import UnassignedTicketMolecule from "../molecules/UnassignedTicketMolecule";
 import MultipleSelectInputMolecule from "../molecules/MultipleSelectInputMolecule";
 import FormSubmitAtom from "../atoms/FormSubmitAtom";
+import TaskDropDownHeaderMolecule from "../molecules/TaskDropDownHeaderMolecule";
+import Accounts from "./Accounts";
+import AddAccount from "./AddAccounts";
+const ls = require("local-storage");
 
 class Admin extends Component {
   state = {
@@ -11,6 +15,14 @@ class Admin extends Component {
     users: [],
     user_id: [""],
     selectedTicket: {},
+    showAssignedTickets:
+      ls("showUnassignedTickets") === null
+        ? false
+        : ls("showUnassignedTickets"),
+    showUserAccounts:
+      ls("showUserAccounts") === null ? false : ls("showUserAccounts"),
+    showNewUserAccount:
+      ls("showNewUserAccount") === null ? false : ls("showNewUserAccount"),
   };
 
   componentDidMount() {
@@ -25,6 +37,21 @@ class Admin extends Component {
   onHandleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
     console.log(e.target.ticket);
+  };
+
+  onHandleClickUnassigned = () => {
+    this.setState({ showUnassignedTickets: !this.state.showUnassignedTickets });
+    ls.set("showUnassignedTickets", !this.state.showUnassignedTickets);
+  };
+
+  onHandleClickUserAccounts = () => {
+    this.setState({ showUserAccounts: !this.state.showUserAccounts });
+    ls.set("showUserAccounts", !this.state.showUserAccounts);
+  };
+
+  onHandleClickNewUserAccount = () => {
+    this.setState({ showNewUserAccount: !this.state.showNewUserAccount });
+    ls.set("showNewUserAccount", !this.state.showNewUserAccount);
   };
 
   onHandleClick = (ticket) => {
@@ -53,46 +80,67 @@ class Admin extends Component {
   deleteTicket = (id) => {
     axios.delete("http://localhost:8081/gateway/tickets/" + id);
   };
-
   render() {
-    const { tickets, users, user_id } = this.state;
-    const ls = require("local-storage");
-    const loggedInUser = ls.get("user");
+    const {
+      tickets,
+      users,
+      user_id,
+      showUnassignedTickets,
+      showUserAccounts,
+      showNewUserAccount,
+    } = this.state;
+
     return (
       <React.Fragment>
         <div className="card">
-          <div className="card-header">
-            <h3>Unassigned Tickets</h3>
-          </div>
-          {tickets.map((ticket) => (
-            <div
-              key={ticket.id}
-              className="card m-3 p-3"
-              onClick={this.onHandleClick.bind(this, ticket)}
-            >
-              <UnassignedTicketMolecule
-                key={ticket.id}
-                ticket={ticket}
-                user={this.props.user}
-                handleDeleteTicket={this.deleteTicket.bind(this, ticket.id)}
-              />
-              <form onSubmit={this.onHandleSubmit}>
-                <MultipleSelectInputMolecule
-                  label="Engineer"
-                  type="text"
-                  name="user_id"
-                  ticket={ticket}
-                  value={user_id}
-                  onChange={this.onHandleChange}
-                  options={users}
-                />
-                <FormSubmitAtom
-                  label="Assign Engineer"
+          <TaskDropDownHeaderMolecule
+            label="View Unassigned Tickets"
+            onClickChevron={this.onHandleClickUnassigned}
+          />
+          {showUnassignedTickets ? (
+            <React.Fragment>
+              {tickets.map((ticket) => (
+                <div
+                  key={ticket.id}
+                  className="card m-3 p-3"
                   onClick={this.onHandleClick.bind(this, ticket)}
-                />
-              </form>
-            </div>
-          ))}
+                >
+                  <UnassignedTicketMolecule
+                    key={ticket.id}
+                    ticket={ticket}
+                    user={this.props.user}
+                    handleDeleteTicket={this.deleteTicket.bind(this, ticket.id)}
+                  />
+                  <form onSubmit={this.onHandleSubmit}>
+                    <MultipleSelectInputMolecule
+                      label="Engineer"
+                      type="text"
+                      name="user_id"
+                      ticket={ticket}
+                      value={user_id}
+                      onChange={this.onHandleChange}
+                      options={users}
+                    />
+                    <FormSubmitAtom
+                      label="Assign Engineer"
+                      onClick={this.onHandleClick.bind(this, ticket)}
+                    />
+                  </form>
+                </div>
+              ))}
+            </React.Fragment>
+          ) : null}
+
+          <TaskDropDownHeaderMolecule
+            label="View User Accounts"
+            onClickChevron={this.onHandleClickUserAccounts}
+          />
+          {showUserAccounts ? <Accounts /> : null}
+          <TaskDropDownHeaderMolecule
+            label="Create New User Account"
+            onClickChevron={this.onHandleClickNewUserAccount}
+          />
+          {showNewUserAccount ? <AddAccount /> : null}
         </div>
       </React.Fragment>
     );
