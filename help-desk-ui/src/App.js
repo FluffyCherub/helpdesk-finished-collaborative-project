@@ -35,7 +35,6 @@ const App = () => {
     setUser({});
     setUsername("");
     setPassword("");
-    //localStorage.clear();
     ls.clear();
     window.location.reload(false);
   };
@@ -54,56 +53,106 @@ const App = () => {
   };
 
   if (user) {
-    return (
-      <div>
+    if (user.userType === "Admin") {
+      return (
         <div>
-          {user.fullName} is logged in
-          <button onClick={handleLogout}>logout</button>
-        </div>
-
-        <Router>
-          <div className="container">
-            <Header />
-            <Routes>
-              <Route path="/tickets" element={<Tickets />} />
-
-              <Route index element={<Home user={user} />} />
-
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/engineer" element={<Engineer />} />
-              <Route path="/client" element={<Client />} />
-
-              <Route path="/admin/accounts" element={<Accounts />} />
-              <Route path="/admin/newaccounts" element={<AddAccounts />} />
-              <Route path="/client/NewTicket" element={<AddTicket />} />
-
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
+          <div>
+            {user.fullName} is logged in
+            <button onClick={handleLogout}>logout</button>
           </div>
-        </Router>
-      </div>
-    );
+          <Router>
+            <div className="container">
+              <Header />
+              <Routes>
+                <Route path="/tickets" element={<Tickets />} />
+
+                <Route index element={<Home user={user} />} />
+
+                <Route path="/admin" element={<Admin />} />
+
+                <Route path="/admin/accounts" element={<Accounts />} />
+                <Route path="/admin/newaccounts" element={<AddAccounts />} />
+
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </div>
+          </Router>
+        </div>
+      );
+    } else if (user.userType === "Engineer") {
+      return (
+        <div>
+          <div>
+            {user.fullName} is logged in
+            <button onClick={handleLogout}>logout</button>
+          </div>
+          <Router>
+            <div className="container">
+              <Header />
+              <Routes>
+                <Route index element={<Home user={user} />} />
+
+                <Route path="/engineer" element={<Engineer />} />
+
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </div>
+          </Router>
+        </div>
+      );
+    } else if (user.userType === "Client") {
+      return (
+        <div>
+          <div>
+            {user.fullName} is logged in
+            <button onClick={handleLogout}>logout</button>
+          </div>
+          <Router>
+            <div className="container">
+              <Header />
+              <Routes>
+                <Route index element={<Home user={user} />} />
+
+                <Route path="/client" element={<Client />} />
+
+                <Route path="/client/NewTicket" element={<AddTicket />} />
+
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </div>
+          </Router>
+        </div>
+      );
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username: </label>
+    <form className="loginForm" onSubmit={handleSubmit}>
+      <label className="loginLabel" htmlFor="username">
+        Username:{" "}
+      </label>
       <input
+        className="loginInput"
         type="text"
         value={username}
         placeholder="enter a username"
         onChange={({ target }) => setUsername(target.value)}
       />
       <div>
-        <label htmlFor="password">password: </label>
+        <label className="loginLabel" htmlFor="password">
+          password:{" "}
+        </label>
         <input
+          className="loginInput"
           type="password"
           value={password}
           placeholder="enter a password"
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">Login</button>
+      <button className="loginButton" type="submit">
+        Login
+      </button>
     </form>
   );
 };
