@@ -16,6 +16,24 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 
+/**
+ * Users is the abstract base class for all users in the system
+ * which allow an application to interact with messages and tickets.
+ * Users state information includes:
+ * <ul>
+ * <li>The UserType which helps the UI with authorisation
+ * <li>user_id
+ * <li>username used for signing in the user
+ * <li>email
+ * <li>fullName
+ * <li>password used for signing in the user
+ * </ul>
+ * 
+ * @author Laney Deveson
+ * @author James Giddings
+ * @version %I%, %G%
+ * @since 1.0
+ */
 @Data
 @Entity
 @Table(name = "Users")
