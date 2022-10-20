@@ -23,81 +23,92 @@ import com.fdmgroup.helpdeskapi.repository.UserRepository;
 @ExtendWith(MockitoExtension.class)
 class UserServiceImpTest {
 
-	@Mock
-	private UserRepository userRepository;
+    @Mock
+    private UserRepository userRepository;
 
-	@InjectMocks
-	private UserServiceImp userService;
+    @InjectMocks
+    private UserServiceImp userService;
 
-	Admin admin1, admin2;
-	Client client1, client2;
-	Engineer engineer1, engineer2;
+    Admin admin1, admin2;
+    Client client1, client2;
+    Engineer engineer1, engineer2;
 
-	List<User> users;
+    List<User> users;
 
-	@BeforeEach
-	void setUp() throws Exception {
-		admin1 = new Admin();
-		admin1.setFullName("George Smith");
-		admin1.setEmail("george@msn");
-		admin1.setUsername("GSmith");
-		admin1.setPassword("password");
+    @BeforeEach
+    void setUp() throws Exception {
+        admin1 = new Admin();
+        admin1.setFullName("George Smith");
+        admin1.setEmail("george@msn");
+        admin1.setUsername("GSmith");
+        admin1.setPassword("password");
 
-		admin2 = new Admin();
-		admin2.setFullName("Georgia Smith");
-		admin2.setEmail("georgia@msn");
-		admin2.setUsername("GaSmith");
-		admin2.setPassword("password");
+        admin2 = new Admin();
+        admin2.setFullName("Georgia Smith");
+        admin2.setEmail("georgia@msn");
+        admin2.setUsername("GaSmith");
+        admin2.setPassword("password");
 
-		client1 = new Client();
-		client1.setFullName("Joe Bloggs");
-		client1.setEmail("joe@msn");
-		client1.setUsername("JBloggs");
-		client1.setPassword("password");
+        client1 = new Client();
+        client1.setFullName("Joe Bloggs");
+        client1.setEmail("joe@msn");
+        client1.setUsername("JBloggs");
+        client1.setPassword("password");
 
-		client2 = new Client();
-		client2.setFullName("Joanna Bloggs");
-		client2.setEmail("joanna@msn");
-		client2.setUsername("JaBloggs");
-		client2.setPassword("password");
+        client2 = new Client();
+        client2.setFullName("Joanna Bloggs");
+        client2.setEmail("joanna@msn");
+        client2.setUsername("JaBloggs");
+        client2.setPassword("password");
 
-		engineer1 = new Engineer();
-		engineer1.setFullName("Tim Knight");
-		engineer1.setEmail("tim@msn");
-		engineer1.setUsername("TKnight");
-		engineer1.setPassword("password");
-		engineer1.setSpecialism("Teleocoms");
+        engineer1 = new Engineer();
+        engineer1.setFullName("Tim Knight");
+        engineer1.setEmail("tim@msn");
+        engineer1.setUsername("TKnight");
+        engineer1.setPassword("password");
+        engineer1.setSpecialism("Teleocoms");
 
-		engineer2 = new Engineer();
-		engineer2.setFullName("Tarra Knight");
-		engineer2.setEmail("tarra@msn");
-		engineer2.setUsername("TaKnight");
-		engineer2.setPassword("password");
-		engineer2.setSpecialism("Software");
+        engineer2 = new Engineer();
+        engineer2.setFullName("Tarra Knight");
+        engineer2.setEmail("tarra@msn");
+        engineer2.setUsername("TaKnight");
+        engineer2.setPassword("password");
+        engineer2.setSpecialism("Software");
 
-		users = List.of(admin1, admin2, engineer1, engineer2, client1, client2);
-	}
+        users = List.of(admin1, admin2, engineer1, engineer2, client1, client2);
+    }
 
-	@Test
-	void testSaveUser() {
+    @Test
+    void testSaveUser() {
 
-		given(userRepository.save(admin1)).willReturn(admin1);
+        given(userRepository.save(admin1)).willReturn(admin1);
 
-		Admin actual = (Admin) userService.saveUser(admin1);
+        Admin actual = (Admin) userService.saveUser(admin1);
 
-		assertThat(actual).isNotNull();
-		verify(userRepository, times(1)).save(admin1);
-	}
+        assertThat(actual).isNotNull();
+        verify(userRepository, times(1)).save(admin1);
+    }
 
-	@Test
-	public void testFindAllUsers() {
+    @Test
+    public void testFindAllUsers() {
 
-		given(userRepository.findAll()).willReturn(users);
+        given(userRepository.findAll()).willReturn(users);
 
-		Iterable<User> actual = userService.findAllUsers();
+        Iterable<User> actual = userService.findAllUsers();
 
-		assertThat(actual.spliterator().getExactSizeIfKnown()).isEqualTo(6);
-		verify(userRepository, times(1)).findAll();
-	}
+        assertThat(actual.spliterator().getExactSizeIfKnown()).isEqualTo(6);
+        verify(userRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void testFindAllEngineers() {
+
+        given(userRepository.findAll()).willReturn(users);
+
+        Iterable<User> actual = userService.findAllEngineers();
+
+        assertThat(actual.spliterator().getExactSizeIfKnown()).isEqualTo(2);
+        verify(userRepository, times(1)).findAll();
+    }
 
 }
