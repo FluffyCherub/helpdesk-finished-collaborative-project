@@ -10,7 +10,9 @@ class Engineer extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:8081/gateway/tickets/engineer/5")
+      .get(
+        "http://localhost:8081/gateway/tickets/engineer/" + this.props.user.id // get the tickets assigned to this engineer
+      )
       .then((response) => this.setState({ tickets: response.data }));
   }
 
@@ -19,7 +21,10 @@ class Engineer extends Component {
   };
 
   render() {
+    const ls = require("local-storage");
+    const loggedInUser = ls.get("user");
     const { tickets } = this.state;
+    console.log("the user's full name is " + loggedInUser.fullName);
     return (
       <React.Fragment>
         {tickets.map((ticket) => (
@@ -27,6 +32,7 @@ class Engineer extends Component {
             key={ticket.id}
             ticket={ticket}
             handleDeleteTicket={this.deleteTicket.bind(this, ticket.id)}
+            user={loggedInUser}
           />
         ))}
       </React.Fragment>

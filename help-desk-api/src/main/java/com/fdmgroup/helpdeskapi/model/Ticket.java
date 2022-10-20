@@ -21,7 +21,7 @@ import lombok.Setter;
 public class Ticket {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Setter(AccessLevel.NONE)
 	@Column(name = "ticket_id")
 	private long id;

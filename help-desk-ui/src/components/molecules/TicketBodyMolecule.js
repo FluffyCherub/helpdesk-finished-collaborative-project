@@ -1,13 +1,11 @@
 import React from "react";
 import IconAtom from "../atoms/IconAtom";
 import LabelAtom from "../atoms/LabelAtom";
-import TextAreaAtom from "../atoms/TextAreaAtom";
 import AddCommentMolecule from "./AddCommentMolecule";
 import MessageMolecule from "./MessageMolecule";
 
 const TicketBodyMolecule = (props) => {
-  const { title, id, messages, name, username, email, phone } = props;
-  console.log("id: " + id);
+  const { title, id, messages, user, name, username, email, phone } = props;
   return (
     <div className="card-body">
       <ul className="list-group">
@@ -35,7 +33,7 @@ const TicketBodyMolecule = (props) => {
         ))}
       </div>
       <div className="m-3">
-        <AddCommentMolecule author="James" ticketId={id} />
+        <AddCommentMolecule user={user} ticketId={id} />
       </div>
     </div>
   );

@@ -5,30 +5,32 @@ import Client from "./Client";
 import Engineer from "./Engineer";
 
 const Home = (props) => {
-  const { user } = props;
+  const ls = require("local-storage");
+  const loggedInUser = ls.get("user");
 
   return (
     <div className="container">
       {(() => {
-        if (user.userType === "Admin") {
+        if (loggedInUser.userType === "Admin") {
           return (
             <React.Fragment>
               <div>You are an Admin.</div>
-              <Admin />
+              <Admin user={loggedInUser} />
             </React.Fragment>
           );
-        } else if (user.userType === "Engineer") {
+        } else if (loggedInUser.userType === "Engineer") {
           return (
             <React.Fragment>
               <div>You are an Engineer.</div>
-              <Engineer />
+              <Engineer user={loggedInUser} />
             </React.Fragment>
           );
         } else {
+          console.log(loggedInUser);
           return (
             <React.Fragment>
               <div>You are a Client.</div>
-              <Client />
+              <Client user={loggedInUser} />
             </React.Fragment>
           );
         }
