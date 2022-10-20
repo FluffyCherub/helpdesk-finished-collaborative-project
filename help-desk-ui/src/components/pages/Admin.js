@@ -7,6 +7,7 @@ import FormSubmitAtom from "../atoms/FormSubmitAtom";
 import TaskDropDownHeaderMolecule from "../molecules/TaskDropDownHeaderMolecule";
 import Accounts from "./Accounts";
 import AddAccount from "./AddAccounts";
+import EmptyMolecule from "../molecules/EmptyMolecule";
 const ls = require("local-storage");
 
 class Admin extends Component {
@@ -99,35 +100,44 @@ class Admin extends Component {
           />
           {showUnassignedTickets ? (
             <React.Fragment>
-              {tickets.map((ticket) => (
-                <div
-                  key={ticket.id}
-                  className="card m-3 p-3"
-                  onClick={this.onHandleClick.bind(this, ticket)}
-                >
-                  <UnassignedTicketMolecule
-                    key={ticket.id}
-                    ticket={ticket}
-                    user={this.props.user}
-                    handleDeleteTicket={this.deleteTicket.bind(this, ticket.id)}
-                  />
-                  <form onSubmit={this.onHandleSubmit}>
-                    <MultipleSelectInputMolecule
-                      label="Engineer"
-                      type="text"
-                      name="user_id"
-                      ticket={ticket}
-                      value={user_id}
-                      onChange={this.onHandleChange}
-                      options={users}
-                    />
-                    <FormSubmitAtom
-                      label="Assign Engineer"
+              {tickets.length > 0 ? (
+                <React.Fragment>
+                  {tickets.map((ticket) => (
+                    <div
+                      key={ticket.id}
+                      className="card m-3 p-3"
                       onClick={this.onHandleClick.bind(this, ticket)}
-                    />
-                  </form>
-                </div>
-              ))}
+                    >
+                      <UnassignedTicketMolecule
+                        key={ticket.id}
+                        ticket={ticket}
+                        user={this.props.user}
+                        handleDeleteTicket={this.deleteTicket.bind(
+                          this,
+                          ticket.id
+                        )}
+                      />
+                      <form onSubmit={this.onHandleSubmit}>
+                        <MultipleSelectInputMolecule
+                          label="Engineer"
+                          type="text"
+                          name="user_id"
+                          ticket={ticket}
+                          value={user_id}
+                          onChange={this.onHandleChange}
+                          options={users}
+                        />
+                        <FormSubmitAtom
+                          label="Assign Engineer"
+                          onClick={this.onHandleClick.bind(this, ticket)}
+                        />
+                      </form>
+                    </div>
+                  ))}
+                </React.Fragment>
+              ) : (
+                <EmptyMolecule label="No unassigned tickets" />
+              )}
             </React.Fragment>
           ) : null}
 
