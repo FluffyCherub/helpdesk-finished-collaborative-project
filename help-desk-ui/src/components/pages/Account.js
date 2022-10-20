@@ -17,26 +17,15 @@ class Account extends Component {
   };
 
   render() {
-    const { showInfo } = this.state; // destructuring
-    const {  username, email, fullName, password, specialism,messages } =
-      this.props.account;
-      console.log(username);
-
+    const { showInfo } = this.state;
     return (
       <div className="card mb-1">
         <AccountHeaderMolecule
-          username={username}
-          email={email}
+          account={this.props.account}
           onClickDelete={this.onHandleDelete}
           onClickChevron={this.onHandleClick}
         />
-        {showInfo ? (
-          <AccountBodyMolecule
-            // userType={userType}
-            username={username}
-            email={email}
-          />
-        ) : null}
+        {showInfo ? <AccountBodyMolecule account={this.props.account} /> : null}
       </div>
     );
   }
