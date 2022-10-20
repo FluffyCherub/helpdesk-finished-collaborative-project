@@ -43,7 +43,14 @@ class AddAccount extends Component {
       return;
     }
     if (userType === "none") {
-      this.setState({ errors: { specialism: "Specialism is required" } });
+      this.setState({ errors: { specialism: "User Type is required" } });
+      return;
+    }
+
+    if (userType === "Enigneer" && specialism === "") {
+      this.setState({
+        errors: { specialism: "Specialism is required for Engineers" },
+      });
       return;
     }
     console.log("passed validation");
@@ -56,7 +63,7 @@ class AddAccount extends Component {
         fullName,
         password,
         userType,
-        specialism: "software",
+        specialism,
       };
       console.log("new engineer Account", newAccount);
     } else {
@@ -102,6 +109,9 @@ class AddAccount extends Component {
           window.location.reload(true);
         });
     } else if (userType === "Engineer") {
+      console.log("entered engineer");
+      console.log(newAccount.specialism);
+      console.log(newAccount);
       axios
         .post("http://localhost:8081/gateway/users/engineer", newAccount)
         .then((res) => {
@@ -146,7 +156,6 @@ class AddAccount extends Component {
       <div>
         <div className="card">
           <div className="card-header">
-            Create Account
             <div className="card-body">
               <form onSubmit={this.onHandleSubmit}>
                 <FormInput
@@ -159,7 +168,7 @@ class AddAccount extends Component {
                   errors={errors.fullName}
                 />
                 <FormInput
-                  label="username"
+                  label="Username"
                   type="username"
                   name="username"
                   value={username}
@@ -185,31 +194,18 @@ class AddAccount extends Component {
                   placeholder="Please type a strong password"
                   errors={errors.password}
                 />
-                {/* <FormInput
-                  label="Usertype"
-                  type="text"
-                  name="UserType"
-                  value={type}
-                  onChange={this.onHandleChange}
-                  placeholder=""
-                  errors={errors.type}
-                /> */}
 
-                {/* <FormInput
-                  label="speacialism"
-                  type="text"
-                  name="specialism"
-                  value={specialism}
-                  onChange={this.onHandleChange}
-                  placeholder=""
-                  errors={errors.specialism}
-              /> */}
-
-                <div className="form-group">
-                  <label htmlFor="multipleSelectInputMolecule">type</label>
+                <div className="form-group m-3">
+                  <label
+                    className="form-label mx-3"
+                    htmlFor="multipleSelectInputMolecule"
+                  >
+                    User Type
+                  </label>
                   <select
                     name="userType"
                     value={userType}
+                    className="form-control"
                     onChange={this.onHandleChange}
                   >
                     <option value="Admin">Admin</option>
@@ -217,6 +213,18 @@ class AddAccount extends Component {
                     <option value="Engineer">Engineer</option>
                   </select>
                 </div>
+
+                {userType === "Engineer" ? (
+                  <FormInput
+                    label="Specialism"
+                    type="text"
+                    name="specialism"
+                    value={specialism}
+                    onChange={this.onHandleChange}
+                    placeholder=""
+                    errors={errors.specialism}
+                  />
+                ) : null}
 
                 <FormSubmitAtom label="Add Account" />
               </form>
