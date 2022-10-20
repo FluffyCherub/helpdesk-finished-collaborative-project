@@ -12,25 +12,14 @@ class AddCommentMolecule extends Component {
 
   onHandleSubmit = (e) => {
     e.preventDefault();
-    console.log("entered onHandleSubmit in AddCommentMolecule");
     const { body } = this.state;
     if (body === "") {
       this.setState({ errors: { clientId: "Please enter some text" } });
-      // for some reason this occurs
       return;
     }
     const newMessage = {
       body,
-      user: {
-        // hard coded user
-        userType: "Engineer",
-        id: 1,
-        username: "testEngineer13",
-        email: "testengi@gmail.com",
-        fullName: "Jane Doe",
-        password: "password1",
-        specialism: "software",
-      },
+      user: this.props.user,
     };
     axios
       .put(
@@ -40,18 +29,21 @@ class AddCommentMolecule extends Component {
       )
       .then((res) => {
         this.setState({ body: "", clientId: "" });
+        window.location.reload(false);
       });
   };
+
   render() {
     const { clientId, engineerId, title, errors } = this.state;
-    const { author } = this.props;
+    const { fullName } = this.props.user;
     return (
       <div className="container">
         <form onSubmit={this.onHandleSubmit}>
-          <LabelAtom label={author} />
+          <LabelAtom label={fullName} />
           <TextAreaAtom
             onChange={this.onHandleChange}
             placeholder="Please enter your reply here..."
+            submitLabel="Add Reply"
             name="body"
             value={this.state.body}
             // errors={errors.message}

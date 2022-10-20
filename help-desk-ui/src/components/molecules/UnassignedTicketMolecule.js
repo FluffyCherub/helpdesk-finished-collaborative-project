@@ -7,7 +7,7 @@ export default class UnassignedTicketMolecule extends Component {
   };
 
   render() {
-    const { id, title, onHandleDelete, onClickChevron, ticket } = this.props;
-    return <Ticket ticket={ticket} />;
+    const { user, ticket } = this.props;
+    return <Ticket ticket={ticket} user={user} />;
   }
 }

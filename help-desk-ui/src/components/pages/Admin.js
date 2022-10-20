@@ -56,6 +56,8 @@ class Admin extends Component {
 
   render() {
     const { tickets, users, user_id } = this.state;
+    const ls = require("local-storage");
+    const loggedInUser = ls.get("user");
     return (
       <React.Fragment>
         <div className="card">
@@ -71,6 +73,7 @@ class Admin extends Component {
               <UnassignedTicketMolecule
                 key={ticket.id}
                 ticket={ticket}
+                user={this.props.user}
                 handleDeleteTicket={this.deleteTicket.bind(this, ticket.id)}
               />
               <form onSubmit={this.onHandleSubmit}>

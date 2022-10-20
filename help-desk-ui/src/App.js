@@ -12,18 +12,20 @@ import Engineer from "./components/pages/Engineer";
 import Accounts from "./components/pages/Accounts";
 import Client from "./components/pages/Client";
 import AddAccounts from "./components/pages/AddAccounts";
-import Login from "./components/pages/Login";
 import axios from "axios";
 import Home from "./components/pages/Home";
+
 const App = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const ls = require("local-storage");
+  const [username, setUsername] = useState("testEngineer13");
+  const [password, setPassword] = useState("password1");
   const [user, setUser] = useState();
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
+
     if (loggedInUser) {
-      const foundUser = loggedInUser;
+      const foundUser = ls.get("user");
       setUser(foundUser);
     }
   }, []);
@@ -33,7 +35,8 @@ const App = () => {
     setUser({});
     setUsername("");
     setPassword("");
-    localStorage.clear();
+    //localStorage.clear();
+    ls.clear();
     window.location.reload(false);
   };
 
@@ -48,9 +51,9 @@ const App = () => {
         "/" +
         user.password
     );
-    console.log("response: " + response);
     setUser(response.data);
-    localStorage.setItem("user", response.data);
+    //localStorage.setItem("user", response.data);
+    ls.set("user", response.data);
     console.log(response.data);
   };
 
@@ -70,9 +73,9 @@ const App = () => {
 
               <Route index element={<Home user={user} />} />
 
-              <Route path="/admin" element={<Admin user={user} />} />
-              <Route path="/engineer" element={<Engineer user={user} />} />
-              <Route path="/client" element={<Client user={user} />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/engineer" element={<Engineer />} />
+              <Route path="/client" element={<Client />} />
 
               <Route path="/admin/accounts" element={<Accounts />} />
               <Route path="/admin/newaccounts" element={<AddAccounts />} />

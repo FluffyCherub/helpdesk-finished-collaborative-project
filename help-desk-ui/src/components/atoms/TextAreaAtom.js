@@ -3,7 +3,8 @@ import classnames from "classnames";
 import FormSubmitAtom from "./FormSubmitAtom";
 
 const TextAreaAtom = (props) => {
-  const { name, value, placeholder, type, onChange, errors } = props;
+  const { name, value, placeholder, type, onChange, errors, submitLabel } =
+    props;
   return (
     <React.Fragment>
       <textarea
@@ -21,7 +22,7 @@ const TextAreaAtom = (props) => {
       {errors && (
         <div className="invalid-feedback alert alert-danger">{errors}</div>
       )}
-      <FormSubmitAtom label="Add Reply" />
+      <FormSubmitAtom label={submitLabel} />
     </React.Fragment>
   );
 };

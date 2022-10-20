@@ -2,14 +2,20 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import TicketHeaderMolecule from "./molecules/TicketHeaderMolecule";
 import TicketBodyMolecule from "./molecules/TicketBodyMolecule";
+const ls = require("local-storage");
 
 class Ticket extends Component {
   state = {
-    showInfo: false,
+    showInfo:
+      ls("isOpen" + this.props.ticket.id) === null
+        ? false
+        : ls("isOpen" + this.props.ticket.id),
   };
 
   onHandleClick = () => {
     this.setState({ showInfo: !this.state.showInfo });
+    console.log("isOpen" + this.props.ticket.id);
+    ls.set("isOpen" + this.props.ticket.id, !this.state.showInfo);
   };
 
   onHandleDelete = () => {
@@ -17,9 +23,8 @@ class Ticket extends Component {
   };
 
   render() {
-    const { showInfo } = this.state; // destructuring
+    const { showInfo } = this.state;
     const { id, title, messages } = this.props.ticket;
-
     return (
       <div className="card mb-1">
         <TicketHeaderMolecule
@@ -34,6 +39,7 @@ class Ticket extends Component {
             title={title}
             ticket={this.props.ticket}
             messages={messages}
+            user={this.props.user}
           />
         ) : null}
       </div>

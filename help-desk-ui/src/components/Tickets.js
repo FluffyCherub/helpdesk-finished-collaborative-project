@@ -19,6 +19,8 @@ class Tickets extends Component {
 
   render() {
     const { tickets } = this.state;
+    const ls = require("local-storage");
+    const loggedInUser = ls.get("user");
     return (
       <React.Fragment>
         {tickets.map((ticket) => (
@@ -26,6 +28,7 @@ class Tickets extends Component {
             key={ticket.id}
             ticket={ticket}
             handleDeleteTicket={this.deleteTicket.bind(this, ticket.id)}
+            user={loggedInUser}
           />
         ))}
       </React.Fragment>
