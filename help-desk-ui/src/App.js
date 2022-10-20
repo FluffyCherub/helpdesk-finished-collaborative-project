@@ -43,8 +43,6 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = { username, password };
-    console.log("username: " + username);
-    console.log("password: " + password);
     const response = await axios.get(
       "http://localhost:8081/gateway/users/authenticate/" +
         user.username +
@@ -52,16 +50,14 @@ const App = () => {
         user.password
     );
     setUser(response.data);
-    //localStorage.setItem("user", response.data);
     ls.set("user", response.data);
-    console.log(response.data);
   };
 
   if (user) {
     return (
       <div>
         <div>
-          {user.fullName} is loggged in
+          {user.fullName} is logged in
           <button onClick={handleLogout}>logout</button>
         </div>
 

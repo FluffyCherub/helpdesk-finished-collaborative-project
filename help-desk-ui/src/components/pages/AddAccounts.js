@@ -83,6 +83,7 @@ class AddAccount extends Component {
             password: "",
             specialism: "",
           });
+          window.location.reload(true);
         });
     } else if (userType === "Client") {
       axios
@@ -98,6 +99,7 @@ class AddAccount extends Component {
             password: "",
             specialism: "",
           });
+          window.location.reload(true);
         });
     } else if (userType === "Engineer") {
       axios
@@ -113,6 +115,7 @@ class AddAccount extends Component {
             password: "",
             specialism: "",
           });
+          window.location.reload(true);
         });
     } else {
       this.setState({
@@ -125,6 +128,7 @@ class AddAccount extends Component {
         password: "",
         specialism: "",
       });
+      window.location.reload(false);
     }
   };
 
